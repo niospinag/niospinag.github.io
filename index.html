@@ -3,264 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio of Nestor I. Ospina Gaitan - Robotics Software Engineer">
-    <title>Nestor Ospina | Robotics Software Engineer</title>
-    
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Portfolio of Nestor I. Ospina Gaitan — Robotics & AI Software Engineer. ROS2, Machine Learning, data engineering and swarm robotics.">
+    <title>Nestor Ospina | Robotics &amp; AI Software Engineer</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0e14'/><text x='50' y='70' font-size='56' text-anchor='middle' fill='%2300e5ff' font-family='monospace' font-weight='bold'>N</text></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Animations (AOS) -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">NO<span>.</span></div>
-        <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Robotics Projects</a></li>
-            <li><a href="#3d-design">3D Portfolio</a></li>
-            <li><a href="#contact" class="btn-contact">Contact</a></li>
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar" id="navbar">
+        <a href="#hero" class="logo">NO<span>.</span></a>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#about" data-i18n="nav.about">About</a></li>
+            <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+            <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+            <li><a href="#publications" data-i18n="nav.publications">Publications</a></li>
+            <li><a href="#gallery" data-i18n="nav.gallery">3D Design</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
-        <div class="hamburger">
-            <i class="fas fa-bars"></i>
+        <div class="nav-actions">
+            <button id="lang-toggle" class="lang-toggle" aria-label="Switch language">
+                <i class="fas fa-globe"></i><span id="lang-label">ES</span>
+            </button>
+            <button class="hamburger" id="hamburger" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-content" data-aos="fade-up">
-            <h2 class="subtitle">Hello, I'm</h2>
-            <h1 class="title">Nestor Ospina</h1>
-            <h3 class="role">Robotics Software Engineer <span class="highlight">| ROS2 & Embedded Specialist</span></h3>
-            <p class="description">
-                Bridging the gap between simulation and physical deployment. 
-                Specialized in Navigation Stacks, Sensor Fusion (EKF), and 3D Prototyping.
+    <!-- ============ HERO ============ -->
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <p class="hero-greeting" data-i18n="hero.greeting">Hello, I'm</p>
+            <h1 class="hero-title">Nestor I. Ospina Gaitan</h1>
+            <h2 class="hero-role" data-i18n="hero.role">Robotics &amp; AI Software Engineer</h2>
+            <p class="hero-desc" data-i18n="hero.desc">
+                M.Sc. in Industrial Automation bridging AI algorithms and real-world autonomous systems:
+                from predictive ML models and large-scale data pipelines to decentralized control of robot swarms.
             </p>
             <div class="hero-btns">
-                <a href="#projects" class="btn primary">View Projects</a>
-                <a href="https://github.com/niospinag" target="_blank" class="btn secondary"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#projects" class="btn primary" data-i18n="hero.btnProjects">View Projects</a>
+                <!-- CV PDF: drop your resume at assets/pdf/Nestor_Ospina_CV.pdf -->
+                <a href="assets/pdf/Nestor_Ospina_CV.pdf" class="btn ghost" download>
+                    <i class="fas fa-file-arrow-down"></i> <span data-i18n="hero.btnCV">Download CV</span>
+                </a>
+            </div>
+            <div class="hero-social">
+                <a href="https://github.com/niospinag" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/nestor-ospina" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://scholar.google.com/citations?hl=es&user=LRhuGL8AAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                <a href="mailto:nestorivan.o@hotmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
-        <!-- Abstract robotic graphic could go here -->
-        <div class="hero-visual" data-aos="fade-left">
-            <i class="fas fa-robot robot-icon"></i>
+        <div class="hero-photo">
+            <div class="photo-frame">
+                <!-- PROFILE PHOTO: drop your photo at assets/img/profile.jpg (square, 600x600px+) and it will appear automatically -->
+                <div class="photo-placeholder"><span>NO</span></div>
+                <img src="assets/img/profile.jpg" alt="Portrait of Nestor Ospina" onerror="this.remove()">
+            </div>
         </div>
     </header>
 
-    <!-- Skills Section -->
-    <section id="about" class="section-dark">
+    <main>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-right">Technical Arsenal</h2>
+            <h2 class="section-title reveal"><span class="section-num">01.</span> <span data-i18n="about.title">About Me</span></h2>
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p data-i18n="about.p1">
+                        I'm a Robotics and AI Software Engineer with an M.Sc. in Industrial Automation and a strong
+                        foundation in Machine Learning, ROS2, and data engineering. I've designed AI predictive models,
+                        orchestrated large-scale data pipelines (~1 TB), and developed decentralized control systems
+                        for heterogeneous robot swarms.
+                    </p>
+                    <p data-i18n="about.p2">
+                        I leverage Python, GCP, and simulation tools like Gazebo to bridge the gap between AI algorithms
+                        and real-world autonomous navigation systems. Currently turning data into decisions at Banco Falabella.
+                    </p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card reveal">
+                        <span class="stat-value">23</span>
+                        <span class="stat-label" data-i18n="about.stat1">Robots in swarm testbed</span>
+                    </div>
+                    <div class="stat-card reveal d1">
+                        <span class="stat-value">~1 TB</span>
+                        <span class="stat-label" data-i18n="about.stat2">Data pipelines orchestrated</span>
+                    </div>
+                    <div class="stat-card reveal d2">
+                        <span class="stat-value">85%</span>
+                        <span class="stat-label" data-i18n="about.stat3">Commission success rate (from 50%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section id="skills" class="section alt">
+        <div class="container">
+            <h2 class="section-title reveal"><span class="section-num">02.</span> <span data-i18n="skills.title">Technical Arsenal</span></h2>
             <div class="skills-grid">
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="100">
-                    <i class="fas fa-code"></i>
-                    <h3>Languages</h3>
-                    <p>Python, C++, SQL, Bash, MATLAB</p>
+                <div class="skill-card reveal">
+                    <i class="fas fa-robot"></i>
+                    <h3 data-i18n="skills.1.title">Robotics &amp; Vision</h3>
+                    <p data-i18n="skills.1.desc">ROS/ROS2 (Nav2), OpenCV, ArUco Markers, Gazebo, CoppeliaSim, Swarm Robotics</p>
                 </div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="200">
-                    <i class="fas fa-project-diagram"></i>
-                    <h3>Robotics</h3>
-                    <p>ROS/ROS2 (Humble/Foxy), Nav2, Gazebo, CoppeliaSim</p>
-                </div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="skill-card reveal d1">
                     <i class="fas fa-brain"></i>
-                    <h3>Algorithms</h3>
-                    <p>SLAM, EKF, PID, MPC, Path Planning (A*/Dijkstra)</p>
+                    <h3 data-i18n="skills.2.title">AI &amp; Data Engineering</h3>
+                    <p data-i18n="skills.2.desc">Machine Learning (Random Forest), Google Cloud Platform, BigQuery, SQL Server, Looker Studio</p>
                 </div>
-                <div class="skill-card" data-aos="zoom-in" data-aos-delay="400">
+                <div class="skill-card reveal d2">
+                    <i class="fas fa-code"></i>
+                    <h3 data-i18n="skills.3.title">Programming</h3>
+                    <p data-i18n="skills.3.desc">Python (Advanced), SQL (Advanced), Bash/Shell, C++ (Familiar)</p>
+                </div>
+                <div class="skill-card reveal d3">
                     <i class="fas fa-microchip"></i>
-                    <h3>Hardware</h3>
-                    <p>Jetson Orin/Nano, RPi, Sensors (LiDAR/IMU), 3D Printing</p>
+                    <h3 data-i18n="skills.4.title">Hardware &amp; Prototyping</h3>
+                    <p data-i18n="skills.4.desc">NVIDIA Jetson, Raspberry Pi, PCB Troubleshooting, 3D Printing (Cura, SolidWorks)</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Experience Timeline -->
-    <section id="experience" class="section-light">
+    <!-- ============ EXPERIENCE ============ -->
+    <section id="experience" class="section">
         <div class="container">
-            <h2 class="section-title">Experience</h2>
+            <h2 class="section-title reveal"><span class="section-num">03.</span> <span data-i18n="exp.title">Experience</span></h2>
             <div class="timeline">
-                
-                <!-- Unlimited Robotics -->
-                <div class="timeline-item" data-aos="fade-up">
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <span class="date">May 2024 — Present</span>
-                        <h3>Software Engineer (Robotics)</h3>
-                        <h4>Unlimited Robotics</h4>
-                        <p>Engineered high-performance ROS2 nodes (C++/Python) for differential-drive robots in hospitals. Optimized navigation in dynamic environments and reduced localization drift using EKF on Jetson Orin.</p>
+                        <span class="timeline-date" data-i18n="exp1.date">May 2026 — Present</span>
+                        <h3 data-i18n="exp1.role">Data Analyst / Machine Learning</h3>
+                        <h4>Banco Falabella · <span data-i18n="exp1.loc">Bogotá, Colombia</span></h4>
+                        <ul>
+                            <li data-i18n="exp1.b1">Engineered and deployed Random Forest models in Python to optimize business goal distribution, raising branch commission success rates from 50% to 85%.</li>
+                            <li data-i18n="exp1.b2">Architected scalable data pipelines with GCP (BigQuery) and SQL Server to process ~1 TB of historical data through complex Stored Procedures.</li>
+                            <li data-i18n="exp1.b3">Designed real-time dashboards in Looker Studio and advanced Excel (ODBC) to turn complex data into actionable intelligence for C-level executives.</li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Kiwicampus -->
-                <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <span class="date">Dec 2023 — Apr 2024</span>
-                        <h3>Reliability Engineer</h3>
-                        <h4>Kiwicampus S.A.S.</h4>
-                        <p>Diagnosed critical hardware/software failures. Utilized Linux CLI and Python to analyze logs on-site, differentiating between mechanical breakdowns and firmware anomalies.</p>
+                        <span class="timeline-date" data-i18n="exp2.date">May 2024 — Aug 2025</span>
+                        <h3 data-i18n="exp2.role">Robotics Software Engineer</h3>
+                        <h4>Unlimited Robotics · <span data-i18n="exp2.loc">Bogotá, Colombia</span></h4>
+                        <ul>
+                            <li data-i18n="exp2.b1">Maintained and integrated the ROS2 Nav2 stack for differential-drive robots, ensuring platform stability for autonomous navigation.</li>
+                            <li data-i18n="exp2.b2">Developed and tested ROS2 nodes in Python and C++ for sensor data processing and behavior orchestration, validated in high-fidelity Gazebo simulations.</li>
+                            <li data-i18n="exp2.b3">Automated background processes, deployment pipelines and startup sequences with Bash scripting on Ubuntu.</li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Universidad Nacional -->
-                <div class="timeline-item" data-aos="fade-up">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <span class="date">Jul 2018 — Nov 2022</span>
-                        <h3>Graduate Research Engineer</h3>
-                        <h4>Universidad Nacional de Colombia</h4>
-                        <p>Architected a Multi-Agent Robotic System using Game Theory and MPC. Designed and fabricated a low-cost physical testbed using 3D printing and custom embedded hardware.</p>
+                        <span class="timeline-date" data-i18n="exp3.date">Dec 2023 — Apr 2024</span>
+                        <h3 data-i18n="exp3.role">Reliability Engineer (Field Operations)</h3>
+                        <h4>Kiwicampus S.A.S. (Kiwibot) · <span data-i18n="exp3.loc">Orono, Maine, USA</span></h4>
+                        <ul>
+                            <li data-i18n="exp3.b1">Cut hardware iteration time with a 24-hour rapid prototyping pipeline (SolidWorks, Cura, 3D printing), deploying custom modifications onto the autonomous delivery fleet.</li>
+                            <li data-i18n="exp3.b2">Diagnosed and resolved critical hardware/software failures in harsh weather, troubleshooting PCBs and sensors to maximize fleet uptime.</li>
+                        </ul>
                     </div>
                 </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date" data-i18n="exp4.date">Jan 2020 — Jun 2021</span>
+                        <h3 data-i18n="exp4.role">Graduate Research Engineer</h3>
+                        <h4>Bethune-Cookman University &amp; UNAL · <span data-i18n="exp4.loc">Daytona Beach, FL, USA</span></h4>
+                        <ul>
+                            <li data-i18n="exp4.b1">Architected a decentralized multi-agent testbed of 23 heterogeneous robots (rovers of 3 sizes + 2 drones) to evaluate swarm behavior and Game Theory algorithms.</li>
+                            <li data-i18n="exp4.b2">Built a precise vision/localization pipeline with Python, OpenCV and ArUco markers, integrated with Raspberry Pi hardware for real-world validation.</li>
+                            <li data-i18n="exp4.b3">Co-authored a peer-reviewed scientific paper on the multi-agent control strategies.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date" data-i18n="exp5.date">Jul 2021 — Nov 2023</span>
+                        <h3 data-i18n="exp5.role">Career Sabbatical — English Immersion &amp; Cultural Exchange</h3>
+                        <h4><span data-i18n="exp5.loc">USA</span></h4>
+                        <ul>
+                            <li data-i18n="exp5.b1">Immersive program in the United States: achieved professional working proficiency in English and strong cross-cultural communication skills.</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Robotics Projects Portfolio -->
-    <section id="projects" class="section-dark">
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects" class="section alt">
         <div class="container">
-            <h2 class="section-title">Robotics Projects</h2>
+            <h2 class="section-title reveal"><span class="section-num">04.</span> <span data-i18n="projects.title">Featured Projects</span></h2>
             <div class="projects-grid">
-                
-                <!-- Project 1: Unlimited Robotics -->
-                <div class="project-card" data-aos="flip-left">
-                    <div class="card-image project-bg-1">
-                        <!-- REPLACE WITH YOUR IMAGE -->
-                        <div class="overlay">
-                            <i class="fas fa-hospital-user"></i>
-                        </div>
-                    </div>
-                    <div class="card-info">
-                        <h3>Hospital AMR Navigation</h3>
-                        <div class="tags">
-                            <span>ROS2</span><span>Nav2</span><span>C++</span>
-                        </div>
-                        <p>Developed full navigation stack for hospital environments, bridging simulation (Gazebo) to real-world deployment on NVIDIA Jetson.</p>
-                    </div>
-                </div>
 
-                <!-- Project 2: Master's Thesis -->
-                <div class="project-card" data-aos="flip-left" data-aos-delay="100">
-                    <div class="card-image project-bg-2">
-                         <!-- REPLACE WITH YOUR IMAGE -->
-                         <div class="overlay">
-                            <i class="fas fa-train"></i>
-                        </div>
+                <!-- PROJECT PHOTOS: drop images in assets/img/projects/ with these exact names and they appear automatically.
+                     Recommended: 16:9 horizontal, ~1200x675px, JPG. -->
+                <article class="project-card reveal">
+                    <div class="card-media">
+                        <div class="media-placeholder"><i class="fas fa-hospital-user"></i></div>
+                        <img src="assets/img/projects/nav2.jpg" alt="Hospital AMR Navigation" loading="lazy" onerror="this.remove()">
                     </div>
                     <div class="card-info">
-                        <h3>Multi-Agent Rail Testbed</h3>
-                        <div class="tags">
-                            <span>MPC</span><span>Game Theory</span><span>3D Print</span>
-                        </div>
-                        <p>Designed a physical testbed with custom 3D printed agents to validate decentralized control algorithms for collision avoidance.</p>
+                        <h3 data-i18n="proj1.title">Hospital AMR Navigation</h3>
+                        <div class="tags"><span>ROS2</span><span>Nav2</span><span>Gazebo</span><span>C++</span></div>
+                        <p data-i18n="proj1.desc">ROS2 Nav2 stack integration for differential-drive service robots, from high-fidelity Gazebo simulation to deployment on NVIDIA Jetson.</p>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 3: COVID Robot -->
-                <div class="project-card" data-aos="flip-left" data-aos-delay="200">
-                    <div class="card-image project-bg-3">
-                         <!-- REPLACE WITH YOUR IMAGE -->
-                         <div class="overlay">
-                            <i class="fas fa-virus"></i>
-                        </div>
+                <article class="project-card reveal d1">
+                    <div class="card-media">
+                        <div class="media-placeholder"><i class="fas fa-circle-nodes"></i></div>
+                        <img src="assets/img/projects/swarm.jpg" alt="Swarm Robotics Testbed" loading="lazy" onerror="this.remove()">
                     </div>
                     <div class="card-info">
-                        <h3>COVID-19 Hospital Assistant</h3>
-                        <div class="tags">
-                            <span>Prototyping</span><span>Teleoperation</span>
-                        </div>
-                        <p>Rapid prototyping of a robotic solution to assist medical staff during the pandemic, minimizing human exposure.</p>
+                        <h3 data-i18n="proj2.title">Swarm Robotics Testbed</h3>
+                        <div class="tags"><span>Swarm</span><span>Game Theory</span><span>OpenCV</span><span>Raspberry Pi</span></div>
+                        <p data-i18n="proj2.desc">Decentralized control of 23 heterogeneous robots using Game Theory, with an OpenCV + ArUco localization pipeline on Raspberry Pi.</p>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 4: Kiwibot Maintenance -->
-                <div class="project-card" data-aos="flip-left" data-aos-delay="300">
-                    <div class="card-image project-bg-4">
-                         <!-- REPLACE WITH YOUR IMAGE -->
-                         <div class="overlay">
-                            <i class="fas fa-tools"></i>
-                        </div>
+                <article class="project-card reveal d2">
+                    <div class="card-media">
+                        <div class="media-placeholder"><i class="fas fa-chart-line"></i></div>
+                        <img src="assets/img/projects/ml-goals.jpg" alt="ML Goal Distribution" loading="lazy" onerror="this.remove()">
                     </div>
                     <div class="card-info">
-                        <h3>Fleet Reliability & Repair</h3>
-                        <div class="tags">
-                            <span>Hardware Debug</span><span>Linux</span>
-                        </div>
-                        <p>Root cause analysis for fleet failures. Documenting edge cases and repairing PCB/sensor issues to ensure 99% uptime.</p>
+                        <h3 data-i18n="proj3.title">ML Goal Distribution</h3>
+                        <div class="tags"><span>Python</span><span>Random Forest</span><span>GCP</span><span>BigQuery</span></div>
+                        <p data-i18n="proj3.desc">Random Forest models optimizing business goal assignment across branches, lifting commission success from 50% to 85% over ~1 TB of data.</p>
                     </div>
-                </div>
+                </article>
+
+                <article class="project-card reveal d3">
+                    <div class="card-media">
+                        <div class="media-placeholder"><i class="fas fa-screwdriver-wrench"></i></div>
+                        <img src="assets/img/projects/prototyping.jpg" alt="Rapid Prototyping Pipeline" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <div class="card-info">
+                        <h3 data-i18n="proj4.title">Rapid Prototyping Pipeline</h3>
+                        <div class="tags"><span>SolidWorks</span><span>3D Printing</span><span>PCB</span></div>
+                        <p data-i18n="proj4.desc">24-hour design-to-deployment cycle for custom robot fleet modifications: SolidWorks, Cura and 3D printing, plus PCB repair.</p>
+                    </div>
+                </article>
 
             </div>
         </div>
     </section>
 
-    <!-- 3D Design Portfolio Section -->
-    <section id="3d-design" class="section-light">
+    <!-- ============ PUBLICATIONS ============ -->
+    <section id="publications" class="section">
         <div class="container">
-            <h2 class="section-title">3D Design & Prototyping</h2>
-            <p class="section-subtitle">A collection of functional parts, sensor mounts, and robot chassis designed for additive manufacturing.</p>
-            
-            <div class="gallery-grid">
-                <!-- Placeholder for 3D Renders - You should replace img src with your renders -->
-                <div class="gallery-item" data-aos="zoom-in">
-                    <img src="https://placehold.co/600x400/222/00f2ff?text=Sensor+Mount+Design" alt="Sensor Mount">
-                    <div class="gallery-caption">Lidar Sensor Mount</div>
-                </div>
-                <div class="gallery-item" data-aos="zoom-in">
-                    <img src="https://placehold.co/600x400/222/00f2ff?text=Robot+Chassis+CAD" alt="Robot Chassis">
-                    <div class="gallery-caption">Custom Robot Chassis</div>
-                </div>
-                <div class="gallery-item" data-aos="zoom-in">
-                    <img src="https://placehold.co/600x400/222/00f2ff?text=PCB+Enclosure" alt="PCB Box">
-                    <div class="gallery-caption">Waterproof PCB Enclosure</div>
-                </div>
-                <div class="gallery-item" data-aos="zoom-in">
-                    <img src="https://placehold.co/600x400/222/00f2ff?text=Mechanism+Prototype" alt="Mechanism">
-                    <div class="gallery-caption">Actuator Mechanism</div>
-                </div>
+            <h2 class="section-title reveal"><span class="section-num">05.</span> <span data-i18n="publications.title">Publications</span></h2>
+            <p class="section-subtitle reveal" data-i18n="pub.sub">Peer-reviewed and conference publications in robotics and control.</p>
+            <div class="pub-list">
+
+                <a class="pub-row reveal" href="https://scholar.google.com/citations?hl=es&user=LRhuGL8AAAAJ" target="_blank" rel="noopener">
+                    <span class="pub-year">2021</span>
+                    <div class="pub-row-body">
+                        <h3>COVID-Bot: UV-C based autonomous sanitizing robotic platform for COVID-19</h3>
+                        <p class="pub-authors">E. C. Camacho, N. I. Ospina, J. M. Calderón</p>
+                        <p class="pub-venue">IFAC-PapersOnLine 54 (13), 317-322</p>
+                    </div>
+                    <span class="pub-cited"><i class="fas fa-quote-right"></i> <span data-i18n="pub.cited">Cited by</span> 22</span>
+                </a>
+
+                <a class="pub-row reveal d1" href="https://scholar.google.com/citations?hl=es&user=LRhuGL8AAAAJ" target="_blank" rel="noopener">
+                    <span class="pub-year">2021</span>
+                    <div class="pub-row-body">
+                        <h3>Argrohbots: An affordable and replicable ground homogeneous robot swarm testbed</h3>
+                        <p class="pub-authors">N. I. Ospina, E. Mojica-Nava, L. G. Jaimes, J. M. Calderón</p>
+                        <p class="pub-venue">IFAC-PapersOnLine 54 (13), 256-261</p>
+                    </div>
+                    <span class="pub-cited"><i class="fas fa-quote-right"></i> <span data-i18n="pub.cited">Cited by</span> 13</span>
+                </a>
+
+                <a class="pub-row reveal d2" href="https://scholar.google.com/citations?hl=es&user=LRhuGL8AAAAJ" target="_blank" rel="noopener">
+                    <span class="pub-year">2021</span>
+                    <div class="pub-row-body">
+                        <h3>Event-Triggered Control for Weight-Unbalanced Directed Robot Networks</h3>
+                        <p class="pub-authors">J. D. Pabón, G. A. Cardona, N. I. Ospina, J. Calderón, E. Mojica-Nava</p>
+                        <p class="pub-venue">2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</p>
+                    </div>
+                    <span class="pub-cited"><i class="fas fa-quote-right"></i> <span data-i18n="pub.cited">Cited by</span> 1</span>
+                </a>
+
+                <a class="pub-row reveal d3" href="https://scholar.google.com/citations?hl=es&user=LRhuGL8AAAAJ" target="_blank" rel="noopener">
+                    <span class="pub-year">2022</span>
+                    <div class="pub-row-body">
+                        <h3>Argrohbots: An affordable and replicable ground homogeneous robot swarm testbed</h3>
+                        <p class="pub-authors">N. I. Ospina, E. Mojica-Nava, J. M. Calderón</p>
+                        <p class="pub-venue">Florida Scientist 85 (2), 64-65</p>
+                    </div>
+                    <span class="pub-cited"><i class="fas fa-file"></i> <span data-i18n="pub.abstract">Conference abstract</span></span>
+                </a>
+
+                <a class="pub-row reveal d4" href="https://scholar.google.com/citations?hl=es&user=LRhuGL8AAAAJ" target="_blank" rel="noopener">
+                    <span class="pub-year">2022</span>
+                    <div class="pub-row-body">
+                        <h3>COVID-Bot: UV-C based autonomous sanitizing robotic platform for COVID-19</h3>
+                        <p class="pub-authors">C. Camacho, N. Ospina, J. Calderón</p>
+                        <p class="pub-venue">Florida Scientist 85 (2), 65-65</p>
+                    </div>
+                    <span class="pub-cited"><i class="fas fa-file"></i> <span data-i18n="pub.abstract">Conference abstract</span></span>
+                </a>
+
+                <a class="pub-row reveal d5" href="https://arxiv.org/abs/2108.09609" target="_blank" rel="noopener">
+                    <span class="pub-year">2021</span>
+                    <div class="pub-row-body">
+                        <h3>Event-Triggered Control for Weight-Unbalanced Directed Networks</h3>
+                        <p class="pub-authors">J. D. Pabón, G. A. Cardona, N. I. Ospina, J. Calderón, E. Mojica-Nava</p>
+                        <p class="pub-venue">arXiv preprint arXiv:2108.09609</p>
+                    </div>
+                    <span class="pub-cited"><i class="fas fa-paper-plane"></i> <span data-i18n="pub.preprint">Preprint</span></span>
+                </a>
+
             </div>
-            <div class="center-btn">
-                <a href="https://sketchfab.com/niospinag" class="btn secondary">View Sketchfab / CAD Files</a>
+            <div class="center-btn reveal">
+                <a href="https://scholar.google.com/citations?hl=es&user=LRhuGL8AAAAJ" target="_blank" rel="noopener" class="btn ghost small">
+                    <i class="fas fa-graduation-cap"></i> <span data-i18n="pub.btn">View full profile on Google Scholar</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ============ 3D GALLERY ============ -->
+    <section id="gallery" class="section alt">
+        <div class="container">
+            <h2 class="section-title reveal"><span class="section-num">06.</span> <span data-i18n="gallery.title">3D Design &amp; Prototyping</span></h2>
+            <p class="section-subtitle reveal" data-i18n="gallery.subtitle">Functional parts, sensor mounts and robot components designed for additive manufacturing.</p>
+            <div class="gallery-grid">
+
+                <!-- GALLERY IMAGES: drop renders/photos in assets/img/gallery/ with these exact names.
+                     Recommended: 16:9 or 4:3, 800px+, JPG/PNG. -->
+                <figure class="gallery-item reveal">
+                    <div class="gallery-media">
+                        <div class="media-placeholder"><i class="fas fa-cube"></i></div>
+                        <img src="assets/img/gallery/lidar-mount.jpg" alt="Lidar Sensor Mount" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <figcaption data-i18n="gallery.1">Lidar Sensor Mount</figcaption>
+                </figure>
+
+                <figure class="gallery-item reveal d1">
+                    <div class="gallery-media">
+                        <div class="media-placeholder"><i class="fas fa-car-side"></i></div>
+                        <img src="assets/img/gallery/chassis.jpg" alt="Custom Robot Chassis" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <figcaption data-i18n="gallery.2">Custom Robot Chassis</figcaption>
+                </figure>
+
+                <figure class="gallery-item reveal d2">
+                    <div class="gallery-media">
+                        <div class="media-placeholder"><i class="fas fa-box"></i></div>
+                        <img src="assets/img/gallery/pcb-enclosure.jpg" alt="Waterproof PCB Enclosure" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <figcaption data-i18n="gallery.3">Waterproof PCB Enclosure</figcaption>
+                </figure>
+
+                <figure class="gallery-item reveal d3">
+                    <div class="gallery-media">
+                        <div class="media-placeholder"><i class="fas fa-gears"></i></div>
+                        <img src="assets/img/gallery/actuator.jpg" alt="Actuator Mechanism" loading="lazy" onerror="this.remove()">
+                    </div>
+                    <figcaption data-i18n="gallery.4">Actuator Mechanism</figcaption>
+                </figure>
+
+            </div>
+            <div class="center-btn reveal">
+                <!-- TODO: confirm your Sketchfab profile URL -->
+                <a href="https://sketchfab.com/niospinag" target="_blank" rel="noopener" class="btn ghost">
+                    <i class="fas fa-cubes"></i> <span data-i18n="gallery.btn">View Sketchfab / CAD Files</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ EDUCATION ============ -->
+    <section id="education" class="section">
+        <div class="container">
+            <h2 class="section-title reveal"><span class="section-num">07.</span> <span data-i18n="edu.title">Education</span></h2>
+            <div class="edu-grid">
+                <div class="edu-card reveal">
+                    <i class="fas fa-user-graduate"></i>
+                    <div>
+                        <h3 data-i18n="edu1.degree">M.Sc. in Industrial Automation</h3>
+                        <p data-i18n="edu.school">Universidad Nacional de Colombia · Bogotá, Colombia</p>
+                        <span class="edu-date" data-i18n="edu1.date">Jun 2021</span>
+                    </div>
+                </div>
+                <div class="edu-card reveal d1">
+                    <i class="fas fa-bolt"></i>
+                    <div>
+                        <h3 data-i18n="edu2.degree">B.Sc. in Electrical Engineering</h3>
+                        <p data-i18n="edu.school">Universidad Nacional de Colombia · Bogotá, Colombia</p>
+                        <span class="edu-date" data-i18n="edu2.date">Jun 2018</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- ============ CONTACT / FOOTER ============ -->
     <footer id="contact">
         <div class="container">
-            <h2>Let's Build the Future</h2>
-            <p>Open to opportunities in Robotics Software Engineering & Automation.</p>
-            <div class="social-links">
-                <a href="https://linkedin.com/in/nestor-ospina" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/niospinag" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="mailto:nestorivan.o@hotmail.com"><i class="fas fa-envelope"></i></a>
+            <h2 class="section-title reveal"><span class="section-num">08.</span> <span data-i18n="contact.title">Let's Build the Future</span></h2>
+            <p class="contact-text reveal" data-i18n="contact.text">Open to opportunities in Robotics Software Engineering, AI and Automation.</p>
+            <div class="contact-info reveal d1">
+                <span><i class="fas fa-location-dot"></i> <span data-i18n="contact.location">Bogotá, Colombia</span></span>
+                <a href="tel:+573002924631"><i class="fas fa-phone"></i> +57 (300) 292-4631</a>
+                <a href="mailto:nestorivan.o@hotmail.com"><i class="fas fa-envelope"></i> nestorivan.o@hotmail.com</a>
             </div>
-            <p class="copyright">&copy; 2025 Nestor I. Ospina Gaitan.</p>
+            <div class="social-links reveal d2">
+                <a href="https://github.com/niospinag" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/nestor-ospina" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://scholar.google.com/citations?hl=es&user=LRhuGL8AAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                <a href="mailto:nestorivan.o@hotmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="copyright">&copy; <span id="year">2026</span> Nestor I. Ospina Gaitan · <span data-i18n="footer.built">Designed &amp; built from scratch</span></p>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Init Animations
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
-        // Mobile Menu Toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-        
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    </script>
+    <script src="js/i18n.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
