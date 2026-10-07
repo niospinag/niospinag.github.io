@@ -1,0 +1,27 @@
+---
+/**
+ * Fixed, non-interactive HUD backdrop: engineering grid + signal glows +
+ * film grain + a slow telemetry sweep line. Pure CSS, zero JS.
+ */
+---
+
+<div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+  <!-- deep base gradient -->
+  <div class="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_-10%,#0b1622_0%,#070c12_45%,#04070a_100%)]"></div>
+
+  <!-- drifting engineering grid -->
+  <div class="hud-grid hud-mask absolute inset-0 animate-drift opacity-70"></div>
+  <div class="hud-grid-fine absolute inset-0 opacity-[0.16]"></div>
+
+  <!-- signal glows -->
+  <div class="absolute -top-40 -left-40 h-[34rem] w-[34rem] rounded-full bg-neon/10 blur-[120px]"></div>
+  <div class="absolute top-1/3 -right-48 h-[38rem] w-[38rem] rounded-full bg-cyan/10 blur-[130px]"></div>
+  <div class="absolute bottom-0 left-1/3 h-[26rem] w-[26rem] rounded-full bg-magenta/[0.06] blur-[120px]"></div>
+
+  <!-- telemetry sweep -->
+  <div class="absolute inset-x-0 top-0 h-24 animate-sweep bg-[linear-gradient(to_bottom,transparent,rgba(61,255,158,0.05),transparent)]"></div>
+
+  <!-- grain + vignette -->
+  <div class="noise absolute inset-0 opacity-[0.05] mix-blend-overlay"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_50%,transparent_55%,rgba(2,4,6,0.75)_100%)]"></div>
+</div>

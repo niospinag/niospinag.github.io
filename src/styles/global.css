@@ -1,0 +1,530 @@
+/* =========================================================================
+   NESTOR OSPINA — ROBOTICS PORTFOLIO / DESIGN SYSTEM
+   Tailwind CSS v4 (CSS-first config). Theme tokens live in @theme below;
+   there is intentionally no tailwind.config.js — see README for details.
+   Aesthetic: RViz / telemetry HUD, strict dark mode.
+   ========================================================================= */
+
+@import "tailwindcss";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/jetbrains-mono";
+
+/* ------------------------------------------------------------------ *
+ * 1. DESIGN TOKENS
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Surfaces — deep slate/zinc, "instrument panel" feel */
+  --color-void: #04070a;
+  --color-abyss: #070c12;
+  --color-panel: #0a1119;
+  --color-panel-2: #0e1822;
+  --color-panel-3: #13202c;
+
+  /* HUD lines & separators */
+  --color-hud: #1d3040;
+  --color-hud-soft: #14222e;
+  --color-hud-hot: #2a4d63;
+
+  /* Signal accents */
+  --color-neon: #3dff9e;
+  --color-neon-soft: #7dffc4;
+  --color-neon-deep: #10b46a;
+  --color-cyan: #29e0ff;
+  --color-cyan-deep: #0d7f9c;
+  --color-amber: #ffb545;
+  --color-magenta: #ff5da2;
+  --color-signal: #ff5470;
+
+  /* Text ramp */
+  --color-txt: #dce9f2;
+  --color-txt-dim: #92a9bb;
+  --color-txt-mute: #5e7488;
+
+  /* Typography */
+  --font-sans: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace,
+    SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Motion */
+  --animate-blink: blink 1.15s steps(2, start) infinite;
+  --animate-sweep: sweep 7s linear infinite;
+  --animate-drift: drift 24s linear infinite;
+  --animate-ping-slow: ping-slow 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-flicker: flicker 4.5s linear infinite;
+  --animate-boot: boot 0.5s ease-out both;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+@keyframes sweep {
+  0% {
+    transform: translateY(-110%);
+  }
+  100% {
+    transform: translateY(1100%);
+  }
+}
+@keyframes drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 64px 64px;
+  }
+}
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@keyframes flicker {
+  0%,
+  93%,
+  100% {
+    opacity: 1;
+  }
+  94% {
+    opacity: 0.72;
+  }
+  95% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.55;
+  }
+  97% {
+    opacity: 1;
+  }
+}
+@keyframes boot {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes bar-load {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * 2. BASE
+ * ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    color-scheme: dark;
+    --hud-grid: 64px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    color: var(--color-txt);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Strict dark mode: the canvas is painted by <html> only, so the fixed
+     HUD backdrop (z-index:-10) stays visible above it. */
+  html {
+    background-color: var(--color-void);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-neon) 32%, transparent);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-neon);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Telemetry-style scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-hud-hot) var(--color-abyss);
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: var(--color-abyss);
+  }
+  *::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      var(--color-hud-hot),
+      var(--color-neon-deep)
+    );
+    border: 2px solid var(--color-abyss);
+    border-radius: 99px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neon-deep);
+  }
+
+  /* Reduce noise/motion for users that ask for it */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * 3. COMPONENTS
+ * ------------------------------------------------------------------ */
+@layer components {
+  /* --- HUD background layers ------------------------------------- */
+  .hud-grid {
+    background-image: linear-gradient(
+        to right,
+        color-mix(in oklab, var(--color-hud) 55%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--color-hud) 55%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: var(--hud-grid) var(--hud-grid);
+  }
+
+  .hud-grid-fine {
+    background-image: linear-gradient(
+        to right,
+        color-mix(in oklab, var(--color-hud) 30%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--color-hud) 30%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 16px 16px;
+  }
+
+  .hud-mask {
+    -webkit-mask-image: radial-gradient(
+      ellipse 90% 60% at 50% 35%,
+      #000 15%,
+      transparent 78%
+    );
+    mask-image: radial-gradient(
+      ellipse 90% 60% at 50% 35%,
+      #000 15%,
+      transparent 78%
+    );
+  }
+
+  .scanlines::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.028) 0px,
+      rgba(255, 255, 255, 0.028) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    mix-blend-mode: overlay;
+  }
+
+  .noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  }
+
+  /* --- Panels ---------------------------------------------------- */
+  .panel {
+    position: relative;
+    background-color: color-mix(in oklab, var(--color-panel) 88%, transparent);
+    border: 1px solid var(--color-hud);
+    border-radius: 4px;
+    box-shadow:
+      inset 0 1px 0 0 color-mix(in oklab, #ffffff 5%, transparent),
+      0 24px 48px -32px rgba(0, 0, 0, 0.9);
+  }
+
+  .panel-hatch {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--color-hud) 45%, transparent) 0 1px,
+      transparent 1px 7px
+    );
+  }
+
+  /* Corner ticks, the classic HUD bracket */
+  .corners::before,
+  .corners::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    border-color: var(--color-neon);
+    opacity: 0.55;
+    transition: opacity 0.25s ease;
+  }
+  .corners::before {
+    top: -1px;
+    left: -1px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+  }
+  .corners::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+  }
+  .corners:hover::before,
+  .corners:hover::after {
+    opacity: 1;
+  }
+
+  /* --- Type helpers ---------------------------------------------- */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-txt-mute);
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .glow-neon {
+    text-shadow:
+      0 0 12px color-mix(in oklab, var(--color-neon) 45%, transparent),
+      0 0 34px color-mix(in oklab, var(--color-neon) 20%, transparent);
+  }
+
+  .glow-cyan {
+    text-shadow: 0 0 12px color-mix(in oklab, var(--color-cyan) 45%, transparent);
+  }
+
+  .text-stroke {
+    -webkit-text-stroke: 1px var(--color-hud-hot);
+    color: transparent;
+  }
+
+  /* --- Buttons --------------------------------------------------- */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.72rem 1.15rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-primary {
+    color: #04150c;
+    background-color: var(--color-neon);
+    border-color: var(--color-neon);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-neon) 60%, transparent);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-neon-soft);
+    border-color: var(--color-neon-soft);
+    box-shadow: 0 0 26px -4px color-mix(in oklab, var(--color-neon) 70%, transparent);
+  }
+
+  .btn-outline {
+    color: var(--color-txt);
+    background-color: color-mix(in oklab, var(--color-panel-2) 70%, transparent);
+    border-color: var(--color-hud-hot);
+  }
+  .btn-outline:hover {
+    color: var(--color-neon);
+    border-color: var(--color-neon-deep);
+    background-color: color-mix(in oklab, var(--color-neon) 8%, var(--color-panel-2));
+  }
+
+  .btn-ghost {
+    color: var(--color-txt-dim);
+    background-color: transparent;
+    border-color: var(--color-hud);
+  }
+  .btn-ghost:hover {
+    color: var(--color-cyan);
+    border-color: var(--color-cyan-deep);
+  }
+
+  /* --- Chips / badges -------------------------------------------- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.28rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    color: var(--color-txt-dim);
+    background-color: color-mix(in oklab, var(--color-panel-2) 85%, transparent);
+    border: 1px solid var(--color-hud);
+    border-radius: 999px;
+    transition:
+      color 0.18s ease,
+      border-color 0.18s ease,
+      background-color 0.18s ease,
+      transform 0.18s ease;
+  }
+  .chip:hover {
+    color: var(--color-neon);
+    border-color: color-mix(in oklab, var(--color-neon) 45%, var(--color-hud));
+    background-color: color-mix(in oklab, var(--color-neon) 9%, var(--color-panel-2));
+    transform: translateY(-1px);
+  }
+
+  /* --- Scroll reveal --------------------------------------------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* --- Loading skeleton ------------------------------------------ */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-panel-2);
+  }
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--color-neon) 9%, transparent),
+      transparent
+    );
+    animation: bar-load 1.35s ease-in-out infinite;
+  }
+
+  /* --- Grow-on-reveal telemetry bars ------------------------------ */
+  .bar-grow {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--bar-delay, 0ms);
+  }
+  .is-visible .bar-grow,
+  .is-visible.bar-grow {
+    transform: scaleX(var(--bar, 1));
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * 4. VENDOR OVERRIDES — <model-viewer>
+ * ------------------------------------------------------------------ */
+model-viewer {
+  --poster-color: transparent;
+  --progress-bar-color: var(--color-neon);
+  --progress-bar-height: 2px;
+  --progress-mask: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  outline: none;
+}
+
+model-viewer::part(default-progress-bar) {
+  background-color: var(--color-neon);
+  box-shadow: 0 0 14px color-mix(in oklab, var(--color-neon) 70%, transparent);
+}

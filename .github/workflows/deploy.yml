@@ -1,0 +1,74 @@
+# ============================================================================
+#  Build & deploy the Astro portfolio to GitHub Pages (gh-pages).
+#
+#  One-time repo setup:
+#    1. Settings > Pages  ->  Build and deployment > Source: "GitHub Actions"
+#    2. (Custom domain)   ->  Settings > Pages > Custom domain: your-domain.com
+#       then create `public/CNAME` containing ONLY the domain, e.g.
+#           echo "portfolio.tudominio.com" > public/CNAME
+#       and enable "Enforce HTTPS". Add the DNS records your registrar asks for.
+#    3. (Optional) Settings > Secrets and variables > Actions > New repository
+#       variable `SITE_URL` = https://portfolio.tudominio.com
+#       (used by astro.config.mjs for canonical URLs + sitemap)
+# ============================================================================
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build with Astro
+        run: npm run build
+        env:
+          # For a *project* page (user.github.io/repo) Astro needs the base path.
+          # For a custom domain / user site this stays "/" automatically.
+          SITE_URL: ${{ vars.SITE_URL || steps.pages.outputs.base_url }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

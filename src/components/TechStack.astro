@@ -1,0 +1,167 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from './SectionHeader.astro';
+import { stackGroups, accentClasses } from '../data/profile';
+---
+
+<section id="stack" class="relative scroll-mt-24 py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      index="01"
+      title="Tech Stack Matrix"
+      subtitle="Matriz de competencias técnicas organizada por dominio: robótica y control, software y datos, diseño CAD/prototipado, y hardware embebido."
+      note="capabilities.matrix"
+      accent="cyan"
+    />
+
+    <div class="reveal grid gap-6 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-8">
+      <!-- ============ CATEGORY SELECTOR ============ -->
+      <div
+        class="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0"
+        role="tablist"
+        aria-label="Categorías del stack"
+      >
+        {
+          stackGroups.map((g, i) => {
+            const a = accentClasses[g.accent];
+            return (
+              <button
+                type="button"
+                role="tab"
+                id={`stack-tab-${g.id}`}
+                aria-controls={`stack-panel-${g.id}`}
+                aria-selected={i === 0}
+                data-stack-tab={g.id}
+                data-index={i}
+                data-active={i === 0}
+                style={`--acc: var(--color-${g.accent})`}
+                class="stack-tab group relative flex min-w-[13.5rem] shrink-0 items-center gap-3 rounded px-4 py-3.5 text-left lg:w-full lg:min-w-0"
+              >
+                <span class={`grid h-9 w-9 shrink-0 place-items-center rounded border ${a.border} ${a.bg} ${a.text}`}>
+                  <Icon name={g.icon} class="h-4 w-4" />
+                </span>
+                <span class="min-w-0">
+                  <span class="label block !text-[9px]">{g.code}</span>
+                  <span class="mt-0.5 block truncate font-mono text-[13px] font-semibold text-txt">{g.title}</span>
+                </span>
+                <span class={`ml-auto font-mono text-[10px] tabular-nums ${a.text}`}>
+                  {String(g.items.length).padStart(2, '0')}
+                </span>
+              </button>
+            );
+          })
+        }
+      </div>
+
+      <!-- ============ PANELS ============ -->
+      <div class="relative min-h-[19rem]">
+        {
+          stackGroups.map((g, i) => {
+            const a = accentClasses[g.accent];
+            return (
+              <div
+                role="tabpanel"
+                id={`stack-panel-${g.id}`}
+                aria-labelledby={`stack-tab-${g.id}`}
+                data-stack-panel={g.id}
+                class={i === 0 ? '' : 'hidden'}
+              >
+                <div class="panel corners scanlines relative h-full overflow-hidden p-5 sm:p-7">
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <h3 class={`font-display text-lg font-bold uppercase tracking-wide ${a.text}`}>{g.title}</h3>
+                    <span class="mono text-[10px] text-txt-mute">
+                      {g.code} · {g.items.length} modules loaded
+                    </span>
+                  </div>
+
+                  <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                    {
+                      g.items.map((item, idx) => (
+                        <div class="group flex items-center gap-3 rounded border border-hud bg-panel-2/60 px-3.5 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-hud-hot">
+                          <span class={`mono text-[10px] tabular-nums ${a.text}`}>{String(idx + 1).padStart(2, '0')}</span>
+                          <span class="truncate text-sm text-txt">{item}</span>
+                          <span class={`ml-auto h-1.5 w-1.5 rounded-full ${a.dot} opacity-0 transition-opacity group-hover:opacity-100`}></span>
+                        </div>
+                      ))
+                    }
+                  </div>
+
+                  <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-hud pt-4 font-mono text-[10px] text-txt-mute">
+                    <span class="inline-flex items-center gap-1.5">
+                      <span class={`h-1.5 w-1.5 rounded-full ${a.dot} animate-blink`}></span>
+                      MODULES: {g.items.length}
+                    </span>
+                    <span>
+                      STATUS: <span class={a.text}>PRODUCTION</span>
+                    </span>
+                    <span class="hidden sm:inline">LAST_SYNC: 2026-09</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack-tab {
+    border: 1px solid var(--color-hud);
+    background: color-mix(in oklab, var(--color-panel) 60%, transparent);
+    transition:
+      border-color 0.25s ease,
+      background-color 0.25s ease,
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
+  }
+  .stack-tab:hover {
+    border-color: var(--color-hud-hot);
+    transform: translateY(-1px);
+  }
+  .stack-tab[data-active='true'] {
+    border-color: color-mix(in oklab, var(--acc) 55%, var(--color-hud));
+    background: color-mix(in oklab, var(--acc) 10%, var(--color-panel));
+    box-shadow:
+      inset 2px 0 0 0 var(--acc),
+      0 0 26px -14px var(--acc);
+  }
+</style>
+
+<script>
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-stack-tab]')];
+  const panels = [...document.querySelectorAll<HTMLElement>('[data-stack-panel]')];
+
+  const activate = (id: string) => {
+    tabs.forEach((t) => {
+      const on = t.dataset.stackTab === id;
+      t.dataset.active = String(on);
+      t.setAttribute('aria-selected', String(on));
+    });
+    panels.forEach((p) => {
+      const on = p.dataset.stackPanel === id;
+      p.classList.toggle('hidden', !on);
+      if (on) {
+        p.classList.remove('animate-boot');
+        void p.offsetWidth;
+        p.classList.add('animate-boot');
+      }
+    });
+  };
+
+  tabs.forEach((t) => {
+    t.addEventListener('click', () => activate(t.dataset.stackTab!));
+    t.addEventListener('keydown', (e) => {
+      const i = Number(t.dataset.index);
+      let next = -1;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+      if (next >= 0) {
+        e.preventDefault();
+        tabs[next].focus();
+        activate(tabs[next].dataset.stackTab!);
+      }
+    });
+  });
+</script>

@@ -1,0 +1,259 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from './SectionHeader.astro';
+import ModelViewer from './ModelViewer.astro';
+import { models, robotGallery } from '../data/profile';
+
+const active = models[0];
+---
+
+<section id="viewer" class="relative scroll-mt-24 py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      index="04"
+      title="CAD / Digital Twin Viewer"
+      subtitle="Ocho exportaciones reales de SolidWorks, optimizadas como GLB con compresión Draco. Arrastra para orbitar, usa la rueda o pellizco para acercar, y selecciona una imagen para abrir su modelo."
+      note="digitaltwin.viewer"
+      accent="cyan"
+    />
+
+    <div class="reveal grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)]">
+      <!-- ============ VIEWER ============ -->
+      <div class="relative">
+        <div class="h-[24rem] sm:h-[30rem] lg:h-[34rem]" id="main-viewer-slot">
+          <ModelViewer
+            src={active.src}
+            alt={`Modelo 3D: ${active.label} — ${active.sublabel}`}
+            poster={active.poster}
+            cameraOrbit={active.cameraOrbit}
+            fieldOfView={active.fieldOfView}
+            exposure={active.exposure}
+            class="!rounded"
+          />
+        </div>
+
+        <!-- hint strip -->
+        <div class="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-txt-mute">
+          <span class="inline-flex items-center gap-1.5"><Icon name="lucide:mouse-pointer-2" class="h-3 w-3" /> arrastra · orbitar</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="lucide:scroll" class="h-3 w-3" /> rueda · zoom</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="lucide:rotate-3d" class="h-3 w-3" /> rotación automática · botón</span>
+          <span class="ml-auto hidden sm:inline">webgl · pbr · ibl neutral</span>
+        </div>
+      </div>
+
+      <!-- ============ ASSEMBLY SELECTOR + SPECS ============ -->
+      <div class="flex flex-col gap-4">
+        <div class="panel corners p-3">
+          <p class="label mb-3 px-1">ensamblajes disponibles</p>
+          <div class="flex max-h-[32rem] flex-col gap-1.5 overflow-y-auto pr-1" role="tablist" aria-label="Selector de modelos 3D" aria-orientation="vertical">
+            {
+              models.map((m, i) => (
+                <button
+                  type="button"
+                  role="tab"
+                  id={`viewer-tab-${m.id}`}
+                  aria-controls="main-viewer-slot"
+                  aria-selected={i === 0}
+                  data-viewer-tab={m.id}
+                  data-index={i}
+                  data-active={i === 0}
+                  data-src={m.src}
+                  data-poster={m.poster}
+                  data-orbit={m.cameraOrbit}
+                  data-fov={m.fieldOfView}
+                  data-exposure={m.exposure}
+                  class="viewer-tab group flex items-center gap-3 rounded px-3 py-2.5 text-left"
+                >
+                  <span class="mono text-[10px] tabular-nums text-txt-mute">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="min-w-0 flex-1">
+                    <span class="block truncate font-mono text-[12px] font-semibold text-txt">{m.label}</span>
+                    <span class="block truncate text-[10px] text-txt-mute">{m.sublabel}</span>
+                  </span>
+                  <Icon name="lucide:chevron-right" class="h-3.5 w-3.5 shrink-0 text-txt-mute transition-transform group-hover:translate-x-0.5" />
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- specs -->
+        <div class="panel corners flex-1 p-4">
+          <p class="label mb-3">ficha técnica</p>
+          {
+            models.map((m, i) => (
+              <dl data-viewer-specs={m.id} class={`space-y-2.5 ${i === 0 ? '' : 'hidden'}`}>
+                {m.specs.map((s) => (
+                  <div class="flex items-baseline justify-between gap-3 border-b border-hud-soft pb-2 last:border-0 last:pb-0">
+                    <dt class="label !text-[9px]">{s.k}</dt>
+                    <dd class="mono text-[11px] text-txt">{s.v}</dd>
+                  </div>
+                ))}
+                <div class="pt-1">
+                  <p class="label mb-1.5 !text-[9px]">ruta del asset</p>
+                  <code class="block truncate rounded border border-hud bg-panel-2/70 px-2 py-1.5 font-mono text-[10px] text-cyan">
+                    {m.src}
+                  </code>
+                </div>
+              </dl>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal mt-14 sm:mt-16">
+      <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p class="label">// solidworks.design-captures</p>
+          <h3 class="mt-2 font-display text-xl font-bold uppercase tracking-wide text-txt sm:text-2xl">
+            Galería de diseños CAD
+          </h3>
+          <p class="mt-2 max-w-3xl text-sm leading-relaxed text-txt-dim">
+            Capturas de tus ensamblajes originales. La pareja <span class="text-cyan">Robot Ensamble</span>
+            aparece en dos configuraciones del CAD: con carcasa y sin carcasa para inspeccionar el interior.
+            Es más fiable que hacer transparente un material, porque cada vista conserva su geometría y materiales originales.
+          </p>
+        </div>
+        <span class="mono text-[10px] uppercase tracking-[0.16em] text-txt-mute">{robotGallery.length} capturas · {models.length} modelos</span>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {
+          robotGallery.map((item, i) => (
+            <button
+              type="button"
+              data-gallery-select={item.modelId}
+              data-gallery-card={item.modelId}
+              data-active={item.modelId === active.id}
+              class="gallery-card panel corners group overflow-hidden text-left transition-all duration-300 hover:-translate-y-1 hover:border-cyan/50"
+              style={`--reveal-delay:${(i % 3) * 70}ms`}
+              aria-label={`Ver modelo 3D: ${item.title}`}
+            >
+              <span class="block aspect-[16/10] overflow-hidden bg-[#e9edf0]">
+                <img
+                  src={item.image}
+                  alt={item.description}
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.035]"
+                />
+              </span>
+              <span class="block p-4">
+                <span class="flex items-center justify-between gap-3">
+                  <span class="font-mono text-[13px] font-semibold text-txt transition-colors group-hover:text-cyan">{item.title}</span>
+                  <Icon name="lucide:arrow-up-right" class="h-4 w-4 shrink-0 text-txt-mute transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-cyan" />
+                </span>
+                <span class="mt-1.5 block text-xs leading-relaxed text-txt-mute">{item.description}</span>
+                <span class="mono mt-3 inline-flex items-center gap-1.5 text-[9px] uppercase tracking-[0.16em] text-cyan">
+                  <span class="h-1.5 w-1.5 rounded-full bg-cyan"></span>
+                  abrir en visor 3D
+                </span>
+              </span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .viewer-tab {
+    border: 1px solid transparent;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .viewer-tab:hover {
+    background: color-mix(in oklab, var(--color-panel-2) 80%, transparent);
+    border-color: var(--color-hud);
+  }
+  .viewer-tab[data-active='true'] {
+    background: color-mix(in oklab, var(--color-cyan) 10%, var(--color-panel));
+    border-color: color-mix(in oklab, var(--color-cyan) 45%, var(--color-hud));
+    box-shadow: inset 2px 0 0 0 var(--color-cyan);
+  }
+  .viewer-tab[data-active='true'] .mono {
+    color: var(--color-cyan);
+  }
+  .gallery-card[data-active='true'] {
+    border-color: color-mix(in oklab, var(--color-cyan) 55%, var(--color-hud));
+    box-shadow: 0 0 28px -14px var(--color-cyan);
+  }
+</style>
+
+<script>
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-viewer-tab]')];
+  const specs = [...document.querySelectorAll<HTMLElement>('[data-viewer-specs]')];
+  const root = document.querySelector<HTMLElement>('#main-viewer-slot [data-mv-root]');
+  const mv = root?.querySelector<HTMLElement & { src: string | null; cameraOrbit: string }>('[data-mv-element]');
+  const progress = root?.querySelector<HTMLElement>('[data-mv-progress]');
+  const state = root?.querySelector<HTMLElement>('[data-mv-state]');
+
+  const galleryButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-gallery-select]')];
+  const MODEL_META: Record<string, { src: string; poster: string; orbit: string; fov: string; exposure: string }> = {};
+  for (const t of tabs) {
+    const id = t.dataset.viewerTab!;
+    MODEL_META[id] = {
+      src: t.dataset.src ?? '',
+      poster: t.dataset.poster ?? '',
+      orbit: t.dataset.orbit ?? 'auto auto auto',
+      fov: t.dataset.fov ?? '32deg',
+      exposure: t.dataset.exposure ?? '1',
+    };
+  }
+
+  const select = (id: string) => {
+    tabs.forEach((t) => {
+      const on = t.dataset.viewerTab === id;
+      t.dataset.active = String(on);
+      t.setAttribute('aria-selected', String(on));
+    });
+    galleryButtons.forEach((b) => {
+      b.dataset.active = String(b.dataset.galleryCard === id);
+    });
+    specs.forEach((s) => s.classList.toggle('hidden', s.dataset.viewerSpecs !== id));
+
+    if (!root || !mv) return;
+    const meta = MODEL_META[id];
+    if (!meta?.src) return;
+
+    // reset loading UI so the skeleton shows again while the new mesh streams
+    delete root.dataset.loaded;
+    delete root.dataset.error;
+    if (progress) progress.style.transform = 'scaleX(0.04)';
+    if (state) state.textContent = 'loading';
+    root.querySelector('[data-mv-error]')?.classList.add('hidden');
+    root.querySelector('[data-mv-skeleton]')?.classList.remove('hidden');
+
+    root.dataset.orbit = meta.orbit;
+    mv.setAttribute('src', meta.src);
+    if (meta.poster) mv.setAttribute('poster', meta.poster);
+    else mv.removeAttribute('poster');
+    mv.setAttribute('camera-orbit', meta.orbit);
+    mv.setAttribute('field-of-view', meta.fov);
+    mv.setAttribute('exposure', meta.exposure);
+  };
+
+  tabs.forEach((t) => {
+    t.addEventListener('click', () => select(t.dataset.viewerTab!));
+    t.addEventListener('keydown', (e) => {
+      const i = Number(t.dataset.index);
+      let next = -1;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+      if (next >= 0) {
+        e.preventDefault();
+        tabs[next].focus();
+        select(tabs[next].dataset.viewerTab!);
+      }
+    });
+  });
+
+  galleryButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      select(button.dataset.gallerySelect!);
+      document.getElementById('main-viewer-slot')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+</script>

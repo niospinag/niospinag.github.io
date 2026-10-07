@@ -1,0 +1,244 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from './SectionHeader.astro';
+import ModelViewer from './ModelViewer.astro';
+import { projects, accentClasses } from '../data/profile';
+---
+
+<section id="projects" class="relative scroll-mt-24 py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      index="03"
+      title="Proyectos & Robotic Showcase"
+      subtitle="Selección de proyectos de robótica, control y diseño. Abre cada tarjeta para leer el case study completo: reto, enfoque, impacto y stack."
+      note="showcase.cases"
+      accent="magenta"
+    />
+
+    <div class="grid gap-5 md:grid-cols-2 lg:gap-6">
+      {
+        projects.map((p, i) => {
+          const a = accentClasses[p.accent];
+          return (
+            <article
+              class="panel corners reveal group relative flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:border-hud-hot"
+              style={`--reveal-delay:${i * 90}ms`}
+            >
+              {/* accent top edge */}
+              <div class={`absolute inset-x-0 top-0 h-px bg-gradient-to-r ${a.grad} to-transparent opacity-60 transition-opacity group-hover:opacity-100`}></div>
+
+              <button
+                type="button"
+                data-open-project={p.id}
+                class="flex h-full flex-col p-5 text-left sm:p-6"
+                aria-haspopup="dialog"
+                aria-controls={`modal-${p.id}`}
+              >
+                <div class="flex items-start justify-between gap-4">
+                  <span class={`grid h-11 w-11 shrink-0 place-items-center rounded border ${a.border} ${a.bg} ${a.text} transition-transform duration-300 group-hover:scale-105`}>
+                    <Icon name={p.icon} class="h-5 w-5" />
+                  </span>
+                  <span class="text-right">
+                    <span class={`label block !text-[9px] ${a.text}`}>{p.category}</span>
+                    <span class="mono mt-1 block text-[10px] tabular-nums text-txt-mute">{p.period}</span>
+                  </span>
+                </div>
+
+                <h3 class="mt-5 font-display text-xl font-bold leading-tight text-txt transition-colors group-hover:text-neon sm:text-2xl">
+                  {p.title}
+                </h3>
+                <p class={`mt-1 font-mono text-[11px] uppercase tracking-[0.14em] ${a.text}`}>{p.subtitle}</p>
+
+                <p class="mt-4 text-sm leading-relaxed text-txt-dim">{p.description}</p>
+
+                <div class="mt-5 grid grid-cols-3 gap-2">
+                  {
+                    p.impact.map((im) => (
+                      <div class="rounded border border-hud bg-panel-2/60 px-2 py-2 text-center">
+                        <span class={`mono block text-[11px] font-bold tabular-nums ${a.text}`}>{im.value}</span>
+                        <span class="label mt-1 block !text-[8px] leading-tight">{im.label}</span>
+                      </div>
+                    ))
+                  }
+                </div>
+
+                <div class="mt-5 flex flex-wrap gap-1.5">
+                  {p.stack.slice(0, 5).map((s) => <span class="chip !px-2 !py-1 !text-[10px]">{s}</span>)}
+                  {p.stack.length > 5 && (
+                    <span class="chip !px-2 !py-1 !text-[10px] text-txt-mute">+{p.stack.length - 5}</span>
+                  )}
+                </div>
+
+                <span class="mt-auto flex items-center gap-2 pt-6 font-mono text-[11px] uppercase tracking-[0.16em] text-txt-mute transition-colors group-hover:text-neon">
+                  Ver case study
+                  <Icon name="lucide:arrow-up-right" class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+              </button>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <!-- ================= CASE STUDY MODALS ================= -->
+  {
+    projects.map((p) => {
+      const a = accentClasses[p.accent];
+      return (
+        <dialog
+          id={`modal-${p.id}`}
+          class="project-modal m-auto w-[min(56rem,calc(100vw-2rem))] max-w-none rounded border border-hud bg-abyss p-0 text-txt shadow-2xl backdrop:bg-void/80 backdrop:backdrop-blur-sm"
+          aria-labelledby={`modal-title-${p.id}`}
+        >
+          <div class="max-h-[85vh] overflow-y-auto">
+            {/* modal header */}
+            <div class="sticky top-0 z-10 flex items-start gap-4 border-b border-hud bg-abyss/95 px-5 py-4 backdrop-blur sm:px-7">
+              <span class={`grid h-10 w-10 shrink-0 place-items-center rounded border ${a.border} ${a.bg} ${a.text}`}>
+                <Icon name={p.icon} class="h-5 w-5" />
+              </span>
+              <div class="min-w-0 flex-1">
+                <h3 id={`modal-title-${p.id}`} class="font-display text-lg font-bold text-txt sm:text-xl">
+                  {p.title}
+                </h3>
+                <p class={`mt-0.5 font-mono text-[10px] uppercase tracking-[0.16em] ${a.text}`}>
+                  {p.subtitle} · {p.period}
+                </p>
+              </div>
+              <button
+                type="button"
+                data-close-project
+                aria-label="Cerrar case study"
+                class="grid h-9 w-9 shrink-0 place-items-center rounded border border-hud bg-panel text-txt-dim transition-colors hover:border-signal/60 hover:text-signal"
+              >
+                <Icon name="lucide:x" class="h-4 w-4" />
+              </button>
+            </div>
+
+            <div class="space-y-7 px-5 py-6 sm:px-7">
+              <p class="text-sm leading-relaxed text-txt-dim sm:text-base">{p.description}</p>
+
+              {/* challenge */}
+              <div>
+                <h4 class="label mb-2 !text-txt-mute">// El reto</h4>
+                <p class="rounded border-l-2 border-amber/60 bg-amber/[0.06] px-4 py-3 text-sm leading-relaxed text-txt">
+                  {p.challenge}
+                </p>
+              </div>
+
+              {/* approach */}
+              <div>
+                <h4 class="label mb-3 !text-txt-mute">// Enfoque técnico</h4>
+                <ol class="space-y-3">
+                  {
+                    p.approach.map((step, idx) => (
+                      <li class="flex items-start gap-3">
+                        <span class={`mono mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded border ${a.border} ${a.bg} text-[10px] font-bold ${a.text}`}>
+                          {String(idx + 1).padStart(2, '0')}
+                        </span>
+                        <span class="text-sm leading-relaxed text-txt">{step}</span>
+                      </li>
+                    ))
+                  }
+                </ol>
+              </div>
+
+              {/* impact */}
+              <div>
+                <h4 class="label mb-3 !text-txt-mute">// Impacto medido</h4>
+                <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  {
+                    p.impact.map((im) => (
+                      <div class={`rounded border ${a.border} ${a.bg} px-4 py-3 text-center`}>
+                        <span class={`mono block text-lg font-bold tabular-nums ${a.text}`}>{im.value}</span>
+                        <span class="label mt-1 block !text-[9px]">{im.label}</span>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+
+              {/* optional 3D */}
+              {
+                p.model && (
+                  <div>
+                    <h4 class="label mb-3 !text-txt-mute">// Modelo asociado</h4>
+                    <div class="h-72 overflow-hidden rounded border border-hud sm:h-80">
+                      <ModelViewer src={p.model} alt={`Modelo 3D de ${p.title}`} height="100%" />
+                    </div>
+                  </div>
+                )
+              }
+
+              {/* stack */}
+              <div>
+                <h4 class="label mb-3 !text-txt-mute">// Stack</h4>
+                <div class="flex flex-wrap gap-2">
+                  {p.stack.map((s) => <span class="chip">{s}</span>)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </dialog>
+      );
+    })
+  }
+</section>
+
+<style>
+  .project-modal::backdrop {
+    background: color-mix(in oklab, var(--color-void) 82%, transparent);
+    backdrop-filter: blur(6px);
+  }
+  .project-modal[open] {
+    animation: modal-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes modal-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const dialogs = new Map<string, HTMLDialogElement>();
+  document.querySelectorAll<HTMLDialogElement>('.project-modal').forEach((d) => {
+    dialogs.set(d.id.replace('modal-', ''), d);
+  });
+
+  let lastFocus: HTMLElement | null = null;
+
+  const open = (id: string) => {
+    const d = dialogs.get(id);
+    if (!d) return;
+    lastFocus = document.activeElement as HTMLElement;
+    d.showModal();
+    document.body.style.overflow = 'hidden';
+    d.querySelector<HTMLButtonElement>('[data-close-project]')?.focus();
+  };
+
+  const close = (d: HTMLDialogElement) => {
+    d.close();
+  };
+
+  document.querySelectorAll<HTMLButtonElement>('[data-open-project]').forEach((btn) => {
+    btn.addEventListener('click', () => open(btn.dataset.openProject!));
+  });
+
+  dialogs.forEach((d) => {
+    d.addEventListener('close', () => {
+      document.body.style.overflow = '';
+      lastFocus?.focus();
+    });
+    // click on backdrop closes
+    d.addEventListener('click', (e) => {
+      if (e.target === d) close(d);
+    });
+    d.querySelector('[data-close-project]')?.addEventListener('click', () => close(d));
+  });
+</script>

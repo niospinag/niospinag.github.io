@@ -1,0 +1,272 @@
+---
+/**
+ * <ModelViewer /> — reusable wrapper around the @google/model-viewer web
+ * component.
+ *
+ * Features:
+ *  - Lazy-loads the model-viewer runtime (and three.js) only when the viewer
+ *    scrolls into view, keeping the initial JS payload at ~0 KB.
+ *  - Loading skeleton + real progress bar driven by the `progress` event.
+ *  - Error fallback state.
+ *  - Optional floating HUD controls: auto-rotate, zoom in/out, reset camera.
+ *  - Orbit / pinch-zoom camera controls, neutral IBL environment, soft shadow.
+ *
+ * Drop your real CAD exports (.glb / .gltf) into `public/models/` and point
+ * `src` at them.
+ */
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  src: string;
+  alt: string;
+  poster?: string;
+  cameraOrbit?: string;
+  fieldOfView?: string;
+  exposure?: string;
+  autoRotate?: boolean;
+  controls?: boolean;
+  height?: string;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  poster,
+  cameraOrbit = '35deg 72deg auto',
+  fieldOfView = '32deg',
+  exposure = '1',
+  autoRotate = true,
+  controls = true,
+  height = '100%',
+  class: className = '',
+} = Astro.props;
+---
+
+<div
+  data-mv-root
+  data-orbit={cameraOrbit}
+  style={`height:${height}`}
+  class={`group/mv relative isolate h-full w-full overflow-hidden rounded border border-hud bg-[radial-gradient(80%_80%_at_50%_40%,#0c1620_0%,#070c12_70%,#04070a_100%)] ${className}`}
+>
+  <!-- HUD frame -->
+  <div class="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
+    <div class="hud-grid-fine absolute inset-0 opacity-[0.12]"></div>
+    <span class="absolute left-2 top-2 h-3 w-3 border-l border-t border-neon/50"></span>
+    <span class="absolute right-2 top-2 h-3 w-3 border-r border-t border-neon/50"></span>
+    <span class="absolute bottom-2 left-2 h-3 w-3 border-b border-l border-neon/50"></span>
+    <span class="absolute bottom-2 right-2 h-3 w-3 border-b border-r border-neon/50"></span>
+    <span class="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-neon/25"></span>
+    <span class="absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-neon/25"></span>
+    <span class="mono absolute left-3 top-3 text-[9px] uppercase tracking-[0.18em] text-txt-mute">
+      viewport::webgl
+    </span>
+    <span class="mono absolute right-3 top-3 text-[9px] uppercase tracking-[0.18em] text-txt-mute" data-mv-state>
+      idle
+    </span>
+  </div>
+
+  <!-- loading skeleton -->
+  <div
+    data-mv-skeleton
+    class="skeleton absolute inset-0 z-30 grid place-items-center transition-opacity duration-500"
+    aria-hidden="true"
+  >
+    <div class="flex flex-col items-center gap-3">
+      <span class="relative grid h-12 w-12 place-items-center">
+        <span class="absolute inset-0 animate-[spin-slow_2.4s_linear_infinite] rounded border border-dashed border-neon/50"></span>
+        <Icon name="lucide:box" class="h-4 w-4 text-neon" />
+      </span>
+      <span class="mono text-[10px] uppercase tracking-[0.2em] text-txt-mute">cargando malla…</span>
+      <span class="h-[3px] w-40 overflow-hidden rounded-full bg-hud-soft">
+        <span data-mv-progress class="block h-full origin-left scale-x-0 rounded-full bg-neon shadow-[0_0_10px_var(--color-neon)] transition-transform duration-200"></span>
+      </span>
+    </div>
+  </div>
+
+  <!-- error state -->
+  <div data-mv-error class="absolute inset-0 z-30 hidden place-items-center bg-abyss/90 p-6 text-center">
+    <div>
+      <Icon name="lucide:triangle-alert" class="mx-auto h-6 w-6 text-signal" />
+      <p class="mono mt-3 text-[11px] uppercase tracking-[0.18em] text-signal">error al cargar .glb</p>
+      <p class="mt-2 max-w-xs text-xs text-txt-mute">
+        Verifica que el modelo exista en <code class="text-txt-dim">public/models/</code> y que el navegador soporte WebGL.
+      </p>
+    </div>
+  </div>
+
+  <!-- the web component itself -->
+  <model-viewer
+    data-mv-element
+    src={src}
+    alt={alt}
+    poster={poster}
+    loading="lazy"
+    reveal="auto"
+    camera-controls
+    touch-action="pan-y"
+    orbit-sensitivity="0.9"
+    auto-rotate={autoRotate || undefined}
+    auto-rotate-delay="1400"
+    rotation-per-second="22deg"
+    interaction-prompt="none"
+    camera-orbit={cameraOrbit}
+    field-of-view={fieldOfView}
+    min-camera-orbit="auto auto 0.6m"
+    max-camera-orbit="auto auto 8m"
+    exposure={exposure}
+    environment-image="neutral"
+    shadow-intensity="0.85"
+    shadow-softness="0.9"
+    class="absolute inset-0"
+  ></model-viewer>
+
+  <!-- floating controls -->
+  {
+    controls && (
+      <div class="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-1.5 rounded border border-hud bg-void/80 p-1.5 backdrop-blur">
+        <button
+          type="button"
+          data-mv-rotate
+          data-on={String(autoRotate)}
+          aria-pressed={String(autoRotate)}
+          title="Auto-rotación"
+          class="grid h-8 w-8 place-items-center rounded text-txt-dim transition-colors hover:bg-panel-2 hover:text-neon data-[on=true]:bg-neon/15 data-[on=true]:text-neon"
+        >
+          <Icon name="lucide:rotate-3d" class="h-4 w-4" />
+        </button>
+        <span class="h-5 w-px bg-hud"></span>
+        <button type="button" data-mv-zoom-in title="Acercar" class="grid h-8 w-8 place-items-center rounded text-txt-dim transition-colors hover:bg-panel-2 hover:text-cyan">
+          <Icon name="lucide:zoom-in" class="h-4 w-4" />
+        </button>
+        <button type="button" data-mv-zoom-out title="Alejar" class="grid h-8 w-8 place-items-center rounded text-txt-dim transition-colors hover:bg-panel-2 hover:text-cyan">
+          <Icon name="lucide:zoom-out" class="h-4 w-4" />
+        </button>
+        <span class="h-5 w-px bg-hud"></span>
+        <button type="button" data-mv-reset title="Restablecer cámara" class="grid h-8 w-8 place-items-center rounded text-txt-dim transition-colors hover:bg-panel-2 hover:text-amber">
+          <Icon name="lucide:frame" class="h-4 w-4" />
+        </button>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  [data-mv-root][data-loaded='true'] [data-mv-skeleton] {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  [data-mv-root][data-loaded='true'] [data-mv-progress] {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  /* ------------------------------------------------------------------
+   * Lazy bootstrap for every <ModelViewer /> on the page. The heavy
+   * model-viewer + three.js runtime is fetched only when a viewer is
+   * about to enter the viewport.
+   * ------------------------------------------------------------------ */
+
+  interface MVElement extends HTMLElement {
+    autoRotate: boolean;
+    cameraOrbit: string;
+    loaded?: boolean;
+    zoom?: (keyPresses: number) => void;
+    resetTurntableRotation?: (theta?: number) => void;
+  }
+
+  let libPromise: Promise<unknown> | null = null;
+  const loadLib = () => {
+    if (libPromise) return libPromise;
+
+    // Self-host the Draco decoder alongside the static site instead of
+    // requesting it from Google's CDN when a compressed model is selected.
+    const globals = window as Window & {
+      ModelViewerElement?: { dracoDecoderLocation?: string };
+    };
+    globals.ModelViewerElement ??= {};
+    globals.ModelViewerElement.dracoDecoderLocation = new URL(
+      `${import.meta.env.BASE_URL}assets/draco/`,
+      window.location.origin,
+    ).href;
+
+    libPromise = import('@google/model-viewer');
+    return libPromise;
+  };
+
+  const wire = (root: HTMLElement) => {
+    if (root.dataset.wired) return;
+    root.dataset.wired = 'true';
+
+    const mv = root.querySelector<MVElement>('[data-mv-element]');
+    const skeleton = root.querySelector<HTMLElement>('[data-mv-skeleton]');
+    const errorBox = root.querySelector<HTMLElement>('[data-mv-error]');
+    const progress = root.querySelector<HTMLElement>('[data-mv-progress]');
+    const state = root.querySelector<HTMLElement>('[data-mv-state]');
+    if (!mv) return;
+
+    const setState = (s: string) => {
+      if (state) state.textContent = s;
+    };
+
+    setState('loading');
+
+    mv.addEventListener('progress', (e) => {
+      const p = (e as CustomEvent<{ totalProgress?: number }>).detail?.totalProgress ?? 0;
+      if (progress) progress.style.transform = `scaleX(${Math.max(0.04, p)})`;
+    });
+
+    mv.addEventListener('load', () => {
+      root.dataset.loaded = 'true';
+      setState('live');
+      skeleton?.setAttribute('aria-hidden', 'true');
+    });
+
+    mv.addEventListener('error', () => {
+      root.dataset.error = 'true';
+      setState('error');
+      skeleton?.classList.add('hidden');
+      errorBox?.classList.remove('hidden');
+      errorBox?.classList.add('grid');
+    });
+
+    if (mv.loaded) {
+      root.dataset.loaded = 'true';
+      setState('live');
+    }
+
+    /* controls */
+    root.querySelector<HTMLButtonElement>('[data-mv-rotate]')?.addEventListener('click', (ev) => {
+      const b = ev.currentTarget;
+      mv.autoRotate = !mv.autoRotate;
+      b.dataset.on = String(mv.autoRotate);
+      b.setAttribute('aria-pressed', String(mv.autoRotate));
+    });
+    root.querySelector('[data-mv-zoom-in]')?.addEventListener('click', () => mv.zoom?.(1));
+    root.querySelector('[data-mv-zoom-out]')?.addEventListener('click', () => mv.zoom?.(-1));
+    root.querySelector('[data-mv-reset]')?.addEventListener('click', () => {
+      mv.cameraOrbit = root.dataset.orbit ?? 'auto auto auto';
+      mv.resetTurntableRotation?.();
+    });
+  };
+
+  const roots = [...document.querySelectorAll<HTMLElement>('[data-mv-root]')];
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          io.unobserve(e.target);
+          void loadLib().then(() => wire(e.target as HTMLElement));
+        }
+      },
+      { rootMargin: '320px' },
+    );
+    roots.forEach((r) => io.observe(r));
+  } else {
+    void loadLib().then(() => roots.forEach(wire));
+  }
+</script>

@@ -1,0 +1,166 @@
+---
+import { Icon } from 'astro-icon/components';
+import { profile } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<footer id="contact" class="relative mt-10 scroll-mt-24 border-t border-hud bg-abyss/60">
+  <!-- ============ CONTACT BAND ============ -->
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <div class="reveal panel corners scanlines relative overflow-hidden p-6 sm:p-10">
+      <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_120%_at_85%_0%,rgba(61,255,158,0.08),transparent_60%)]"></div>
+
+      <div class="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+        <div>
+          <p class="label">// canal abierto</p>
+          <h2 class="mt-3 font-display text-3xl font-bold uppercase leading-tight tracking-tight text-txt sm:text-4xl">
+            ¿Construimos el próximo{' '}
+            <span class="glow-neon text-neon">robot</span> juntos?
+          </h2>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-txt-dim sm:text-base">
+            Abierto a proyectos de robótica, control, visión y diseño mecánico. Escríbeme y respondo en menos de 24 horas hábiles.
+          </p>
+
+          <div class="mt-7 flex flex-wrap items-center gap-3">
+            <!-- copy email -->
+            <button
+              type="button"
+              id="copy-email"
+              data-email={profile.email}
+              class="btn btn-primary group"
+              aria-live="polite"
+            >
+              <Icon name="lucide:copy" class="h-4 w-4 transition-transform group-hover:scale-110 [button[data-copied='true']_&]:hidden" />
+              <Icon name="lucide:check" class="hidden h-4 w-4 [button[data-copied='true']_&]:block" />
+              <span data-copy-label>Copiar correo</span>
+            </button>
+            <a href={`mailto:${profile.email}`} class="btn btn-outline">
+              <Icon name="lucide:mail" class="h-4 w-4" />
+              {profile.email}
+            </a>
+            <a href={profile.cv} download class="btn btn-ghost">
+              <Icon name="lucide:file-down" class="h-4 w-4" />
+              CV PDF
+            </a>
+          </div>
+
+          <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs text-txt-mute">
+            <span class="inline-flex items-center gap-2"><Icon name="lucide:map-pin" class="h-3.5 w-3.5" />{profile.location}</span>
+            <a href={`tel:${profile.phoneHref}`} class="inline-flex items-center gap-2 transition-colors hover:text-cyan">
+              <Icon name="lucide:phone" class="h-3.5 w-3.5" />{profile.phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- social rail -->
+        <div class="flex gap-3 lg:flex-col">
+          <a
+            href={profile.links.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-center gap-3 rounded border border-hud bg-panel/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-neon/50"
+          >
+            <Icon name="lucide:github" class="h-5 w-5 text-txt-dim transition-colors group-hover:text-neon" />
+            <span class="font-mono text-xs text-txt-dim transition-colors group-hover:text-txt">github</span>
+            <Icon name="lucide:arrow-up-right" class="ml-auto h-3.5 w-3.5 text-txt-mute transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-neon" />
+          </a>
+          <a
+            href={profile.links.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-center gap-3 rounded border border-hud bg-panel/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-cyan/50"
+          >
+            <Icon name="lucide:linkedin" class="h-5 w-5 text-txt-dim transition-colors group-hover:text-cyan" />
+            <span class="font-mono text-xs text-txt-dim transition-colors group-hover:text-txt">linkedin</span>
+            <Icon name="lucide:arrow-up-right" class="ml-auto h-3.5 w-3.5 text-txt-mute transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-cyan" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM BAR ============ -->
+  <div class="border-t border-hud/70">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 font-mono text-[10px] uppercase tracking-[0.16em] text-txt-mute sm:flex-row sm:px-6 lg:px-8">
+      <span>© {year} {profile.name}</span>
+      <span class="hidden items-center gap-2 sm:flex">
+        <span class="h-1.5 w-1.5 animate-blink rounded-full bg-neon"></span>
+        astro · tailwind v4 · model-viewer
+      </span>
+      <a href="#hero" class="inline-flex items-center gap-1.5 transition-colors hover:text-neon">
+        <Icon name="lucide:arrow-up" class="h-3 w-3" /> volver al inicio
+      </a>
+    </div>
+  </div>
+
+  <!-- toast -->
+  <div
+    id="toast"
+    role="status"
+    class="pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 translate-y-6 rounded border border-neon/50 bg-void/95 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.16em] text-neon opacity-0 shadow-[0_0_30px_-8px_rgba(61,255,158,0.6)] backdrop-blur transition-all duration-300 data-[show=true]:translate-y-0 data-[show=true]:opacity-100"
+  >
+    <span class="inline-flex items-center gap-2">
+      <Icon name="lucide:clipboard-check" class="h-3.5 w-3.5" />
+      <span id="toast-msg">correo copiado al portapapeles</span>
+    </span>
+  </div>
+</footer>
+
+<script>
+  const btn = document.getElementById('copy-email');
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toast-msg');
+  const label = btn?.querySelector<HTMLElement>('[data-copy-label]');
+  let toastTimer = 0;
+
+  const showToast = (msg?: string) => {
+    if (!toast) return;
+    if (msg && toastMsg) toastMsg.textContent = msg;
+    toast.dataset.show = 'true';
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => {
+      toast.dataset.show = 'false';
+    }, 2600);
+  };
+
+  const fallbackCopy = (text: string) => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try {
+      ok = document.execCommand('copy');
+    } catch {
+      ok = false;
+    }
+    ta.remove();
+    return ok;
+  };
+
+  btn?.addEventListener('click', async () => {
+    const email = btn.dataset.email ?? '';
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(email);
+      ok = true;
+    } catch {
+      ok = fallbackCopy(email);
+    }
+    if (!ok) {
+      showToast(`copia manual: ${email}`);
+      return;
+    }
+    btn.dataset.copied = 'true';
+    if (label) label.textContent = '¡Copiado!';
+    showToast('correo copiado al portapapeles');
+    window.setTimeout(() => {
+      delete btn.dataset.copied;
+      if (label) label.textContent = 'Copiar correo';
+    }, 2600);
+  });
+</script>

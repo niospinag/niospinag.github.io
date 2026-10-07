@@ -1,0 +1,150 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from './SectionHeader.astro';
+import { experience, accentClasses } from '../data/profile';
+---
+
+<section id="experience" class="relative scroll-mt-24 py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <SectionHeader
+      index="02"
+      title="Experiencia Laboral"
+      subtitle="Línea de tiempo interactiva: despliega cada nodo para ver logros cuantificados, métricas de impacto y el stack utilizado."
+      note="career.timeline"
+      accent="neon"
+    />
+
+    <div class="reveal relative pl-6 sm:pl-10">
+      <!-- rail -->
+      <div class="absolute bottom-2 left-[7px] top-2 w-px bg-hud sm:left-[15px]"></div>
+      <div
+        id="exp-rail-fill"
+        class="absolute left-[7px] top-2 w-px origin-top bg-[linear-gradient(180deg,var(--color-neon),var(--color-cyan))] shadow-[0_0_12px_rgba(61,255,158,0.6)] sm:left-[15px]"
+        style="height:0"
+      ></div>
+
+      <ol class="space-y-6">
+        {
+          experience.map((job, i) => {
+            const a = accentClasses[job.accent];
+            return (
+              <li class="relative">
+                {/* node */}
+                <span
+                  class={`absolute -left-6 top-6 grid h-4 w-4 -translate-x-1/2 place-items-center rounded-full border-2 bg-void sm:-left-10 ${a.border}`}
+                  aria-hidden="true"
+                >
+                  <span class={`h-1.5 w-1.5 rounded-full ${a.dot} ${job.current ? 'animate-blink' : ''}`}></span>
+                  {job.current && (
+                    <span class={`absolute inline-flex h-full w-full animate-ping-slow rounded-full ${a.dot} opacity-60`}></span>
+                  )}
+                </span>
+
+                <article class="panel corners group overflow-hidden transition-colors duration-300 hover:border-hud-hot">
+                  {/* header / toggle */}
+                  <button
+                    type="button"
+                    data-exp-toggle
+                    aria-expanded={i === 0}
+                    aria-controls={`exp-body-${i}`}
+                    class="flex w-full flex-wrap items-center gap-x-4 gap-y-2 px-5 py-4 text-left sm:px-6 sm:py-5"
+                  >
+                    <span class="min-w-0 flex-1">
+                      <span class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                        <span class="font-display text-lg font-bold text-txt transition-colors group-hover:text-neon sm:text-xl">
+                          {job.company}
+                        </span>
+                        {job.current && (
+                          <span class="inline-flex items-center gap-1.5 rounded-full border border-neon/40 bg-neon/10 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-neon">
+                            <span class="h-1 w-1 animate-blink rounded-full bg-neon"></span>
+                            activo
+                          </span>
+                        )}
+                      </span>
+                      <span class="mt-1 block font-mono text-xs text-txt-dim">
+                        <span class={a.text}>{job.role}</span>
+                        <span class="text-txt-mute"> · {job.location}</span>
+                      </span>
+                    </span>
+
+                    <span class="mono shrink-0 text-right text-[11px] tabular-nums text-txt-mute">
+                      <span class="block">{job.start}</span>
+                      <span class="block text-txt-dim">↓ {job.end}</span>
+                    </span>
+
+                    <span class={`grid h-8 w-8 shrink-0 place-items-center rounded border ${a.border} ${a.bg} ${a.text} transition-transform duration-300`}>
+                      <Icon name="lucide:chevron-down" class="h-4 w-4 transition-transform duration-300 [button[aria-expanded='true']_&]:rotate-180" />
+                    </span>
+                  </button>
+
+                  {/* collapsible body */}
+                  <div
+                    id={`exp-body-${i}`}
+                    class={`grid transition-[grid-template-rows] duration-500 ease-out ${i === 0 ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+                  >
+                    <div class="overflow-hidden">
+                      <div class="border-t border-hud px-5 py-5 sm:px-6">
+                        <p class="text-sm leading-relaxed text-txt-dim">{job.summary}</p>
+
+                        <ul class="mt-4 space-y-3">
+                          {
+                            job.achievements.map((ach) => (
+                              <li class="flex items-start gap-3">
+                                <span class={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${a.dot}`}></span>
+                                <span class="text-sm leading-relaxed text-txt">
+                                  {ach.text}
+                                  {ach.metric && (
+                                    <span class={`mono ml-2 whitespace-nowrap rounded border ${a.border} ${a.bg} px-1.5 py-0.5 text-[10px] font-semibold ${a.text}`}>
+                                      {ach.metric}
+                                    </span>
+                                  )}
+                                </span>
+                              </li>
+                            ))
+                          }
+                        </ul>
+
+                        <div class="mt-5 flex flex-wrap gap-2">
+                          {job.stack.map((s) => <span class="chip">{s}</span>)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </li>
+            );
+          })
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* expand / collapse timeline nodes */
+  document.querySelectorAll<HTMLButtonElement>('[data-exp-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      const body = document.getElementById(btn.getAttribute('aria-controls') ?? '');
+      body?.classList.toggle('grid-rows-[1fr]', !open);
+      body?.classList.toggle('grid-rows-[0fr]', open);
+    });
+  });
+
+  /* rail fill follows scroll */
+  const rail = document.getElementById('exp-rail-fill');
+  const wrap = rail?.parentElement;
+  if (rail && wrap) {
+    const update = () => {
+      const r = wrap.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const total = r.height;
+      const passed = Math.min(Math.max(vh * 0.55 - r.top, 0), total);
+      rail.style.height = `${passed}px`;
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  }
+</script>
