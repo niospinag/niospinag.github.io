@@ -1,11 +1,11 @@
 /**
  * generate-assets.mjs
  * ---------------------------------------------------------------------------
- * Produces the binary/placeholder assets the site ships with, so a fresh clone
- * builds and renders out of the box (no LFS, no external downloads):
+ * Produces the fallback assets the site needs so a fresh clone builds and
+ * renders out of the box (no LFS, no external downloads):
  *
  *   public/models/*.glb        -> valid glTF 2.0 binary CAD placeholders
- *   public/cv/*-cv.pdf         -> valid, text-selectable CV (replace with yours)
+ *   public/cv/*-cv.pdf         -> text-selectable CV summary from profile data
  *   public/og-cover.png        -> 1200x630 social preview card
  *
  * Usage:
@@ -441,99 +441,95 @@ function buildPdf(items) {
 function buildCv() {
   const NEON = [0.16, 0.62, 0.4];
   const DARK = [0.08, 0.1, 0.13];
+  const BODY = [0.18, 0.21, 0.24];
   const GREY = [0.35, 0.4, 0.45];
   const it = [];
-  let y = 800;
   const L = 56;
+  let y = 710;
 
-  it.push({ rect: [483, 108], x: L, y: y - 18, color: [0.05, 0.07, 0.09] });
-  it.push({ rect: [4, 108], x: L, y: y - 18, color: NEON });
-  it.push({ t: 'NESTOR IVAN OSPINA GAITAN', x: L + 18, y: y + 58, size: 22, font: 'F2', color: [1, 1, 1] });
-  it.push({ t: 'Robotics Software Engineer  |  Robotics, Control & Design', x: L + 18, y: y + 34, size: 11, font: 'F1', color: NEON });
-  it.push({ t: 'Bogotá, Colombia   ·   niospinag@unal.edu.co   ·   +57 300 292 4631', x: L + 18, y: y + 14, size: 9, font: 'F1', color: [0.75, 0.8, 0.85] });
-  it.push({ t: 'github.com/niospinag   ·   linkedin.com/in/niospinag', x: L + 18, y: y - 2, size: 9, font: 'F1', color: [0.75, 0.8, 0.85] });
-  y -= 150;
+  // Header rectangle and all text are positioned inside the A4 page bounds.
+  it.push({ rect: [483, 90], x: L, y: 727, color: [0.05, 0.07, 0.09] });
+  it.push({ rect: [4, 90], x: L, y: 727, color: NEON });
+  it.push({ t: 'NESTOR IVAN OSPINA GAITAN', x: L + 18, y: 790, size: 21, font: 'F2', color: [1, 1, 1] });
+  it.push({ t: 'Robotics Software Engineer  |  Robotics, Control & Design', x: L + 18, y: 771, size: 10.5, font: 'F1', color: NEON });
+  it.push({ t: 'Bogotá, Colombia  ·  niospinag@unal.edu.co  ·  +57 300 292 4631', x: L + 18, y: 753, size: 8.2, font: 'F1', color: [0.75, 0.8, 0.85] });
+  it.push({ t: 'github.com/niospinag  ·  linkedin.com/in/nestor-ospina', x: L + 18, y: 738, size: 8.2, font: 'F1', color: [0.75, 0.8, 0.85] });
 
-  const section = (title) => {
-    it.push({ t: title.toUpperCase(), x: L, y, size: 11, font: 'F2', color: DARK });
-    it.push({ rule: 483, x: L, y: y - 7, color: NEON });
-    y -= 26;
+  const line = (text, size = 8.3, color = BODY, font = 'F1', step = 10.2) => {
+    it.push({ t: text, x: L, y, size, font, color });
+    y -= step;
   };
-  const body = (text, size = 9.5, color = [0.16, 0.19, 0.22], font = 'F1', step = 14) => {
-    for (const line of text) {
-      it.push({ t: line, x: L, y, size, font, color });
-      y -= step;
-    }
-    y -= 6;
+  const section = (title) => {
+    it.push({ t: title.toUpperCase(), x: L, y, size: 9.4, font: 'F2', color: DARK });
+    it.push({ rule: 483, x: L, y: y - 5, color: NEON });
+    y -= 18;
+  };
+  const bullets = (items) => {
+    for (const item of items) line(`- ${item}`, 8.1, BODY, 'F1', 10);
+    y -= 2;
+  };
+  const job = (heading, meta, items) => {
+    line(heading, 8.5, DARK, 'F2', 11);
+    line(meta, 7.6, GREY, 'F1', 9);
+    bullets(items);
   };
 
   section('Perfil profesional');
-  body([
-    'Magíster en Ingeniería - Automatización Industrial con más de 5 años de experiencia',
-    'liderando el desarrollo de plataformas robóticas, algoritmos de control y diseño mecánico CAD.',
-    'Especialista en integración hardware-software, navegación autónoma y analítica de flotas.',
-    'Certificación PMP. Español nativo, inglés con competencia profesional completa.',
+  bullets([
+    'Magíster en Ingeniería - Automatización Industrial y más de 5 años de experiencia.',
+    'Desarrollo de plataformas robóticas, algoritmos de control y diseño mecánico CAD.',
+    'Experiencia en integración hardware-software, navegación autónoma y analítica de flotas.',
   ]);
 
-  section('Métricas de impacto');
-  body([
-    '+50%  Eficiencia en implementación mediante automatización de procesos.',
-    '+25%  Precisión en navegación y control de robots móviles.',
-    '-60%  Tiempo de validación de algoritmos con plataforma de pruebas dedicada.',
-    '99%   Precisión en evasión de colisiones para sistemas multi-agente.',
-  ], 9.5, GREY, 'F1', 14);
+  section('Métricas reportadas');
+  bullets([
+    '+50% eficiencia en implementación mediante automatización.',
+    '+25% precisión en navegación y control de robots.',
+    '-60% tiempo de validación de algoritmos.',
+    '99% precisión en evasión de colisiones multi-agente.',
+  ]);
 
   section('Experiencia profesional');
-  body(['Software Engineer  ·  Unlimited Robotics  ·  Bogotá, Colombia', 'May 2024 — Presente'], 10, DARK, 'F2', 13);
-  body([
-    '·  Desarrollo de soluciones robóticas 3D y algoritmos de control de movimiento y navegación.',
-    '·  Diseño de plataforma de pruebas para validación de algoritmos (-60% tiempo de testeo).',
-    '·  Modernización de flota robótica y diseño de entornos de manufactura aditiva y de pruebas.',
-  ], 9, [0.18, 0.21, 0.24], 'F1', 12.5);
-  y -= 4;
-
-  body(['Junior Maintenance Engineer  ·  Kiwicampus S.A.S. (Kiwibot)  ·  Orono, Maine', 'Dic 2023 — May 2024'], 10, DARK, 'F2', 13);
-  body([
-    '·  Análisis de datos y tracking de flotas de entrega autónoma (+28% eficiencia de pedidos).',
-    '·  Mantenimiento, diagnóstico y reparación del 95% de la flota robótica activa.',
-    '·  Estrategias de mantenimiento predictivo reduciendo fallas operativas en 30%.',
-  ], 9, [0.18, 0.21, 0.24], 'F1', 12.5);
-  y -= 4;
-
-  body(['Assistant Professor  ·  Universidad Nacional de Colombia  ·  Bogotá', 'Jul 2018 — Nov 2022'], 10, DARK, 'F2', 13);
-  body([
-    '·  Instructor de laboratorio para más de 200 estudiantes.',
-    '·  Gestión y disponibilidad de equipos de laboratorio para más de 15 cursos.',
-  ], 9, [0.18, 0.21, 0.24], 'F1', 12.5);
+  job('Unlimited Robotics - Software Engineer', 'Bogotá, Colombia · May 2024 - Presente', [
+    'Desarrollo de soluciones robóticas 3D y control de movimiento y navegación.',
+    'Plataforma de pruebas para algoritmos: -60% en tiempo de testeo.',
+    'Modernización de flota y diseño de entornos de manufactura aditiva y pruebas.',
+  ]);
+  job('Kiwicampus S.A.S. (Kiwibot) - Junior Maintenance Engineer', 'Orono, Maine, USA · Dic 2023 - May 2024', [
+    'Tracking de flotas de entrega autónoma: +28% eficiencia de pedidos.',
+    'Mantenimiento, diagnóstico y reparación del 95% de la flota activa.',
+    'Mantenimiento predictivo: 30% menos fallas operativas.',
+  ]);
+  job('Universidad Nacional de Colombia - Assistant Professor', 'Bogotá, Colombia · Jul 2018 - Nov 2022', [
+    'Instructor de laboratorio para más de 200 estudiantes.',
+    'Gestión de equipos de laboratorio para más de 15 cursos.',
+  ]);
 
   section('Proyectos destacados');
-  body([
-    'COVID Bot — Robot autónomo de desinfección UV-C: diseño mecánico a medida, sensórica',
-    'integrada y navegación autónoma (Python, C++, ROS, Jetson, Raspberry Pi, Arduino, Impresión 3D).',
-    'Multi-Agent Collision Avoidance — navegación independiente multi-robot con 99% de precisión',
-    'en prevención de colisiones en entornos dinámicos (Python, control por visión, multi-agente).',
-    'Data-Driven Robot Tracking & Fleet Analytics — modelos predictivos y telemetría en tiempo real',
-    'para optimización logística de flotas autónomas (Python, Data Analytics, Fleet Management).',
-    'Artificial Testing Environment Design — infraestructura física y digital de entorno hospitalario',
-    'para validación sistemática de robots (SolidWorks, diseño 3D, optimización de costos).',
-  ], 9, [0.18, 0.21, 0.24], 'F1', 12);
+  bullets([
+    'COVID Bot - robot autónomo UV-C; CAD a medida, sensórica integrada y navegación autónoma.',
+    'Multi-Agent Collision Avoidance - navegación multi-robot; 99% de precisión anti-colisión.',
+    'Fleet Analytics (Kiwibot) - modelos predictivos y telemetría para optimizar flotas.',
+    'Artificial Testing Environment - entorno hospitalario físico y digital para validar robots.',
+  ]);
 
   section('Stack tecnológico');
-  body([
-    'Robótica & Control:  ROS · Algoritmos de Control · Navegación Autónoma · Sensor Integration',
-    'Programación & Datos:  Python · C++ · MATLAB · Data Analytics · Control de Flotas',
-    'Diseño CAD:  SolidWorks · Fusion 360 · AutoCAD · Inventor · Manufactura Aditiva (Impresión 3D)',
-    'Hardware Embebido:  Jetson · Raspberry Pi · Arduino · Sensores y Actuadores',
-  ], 9, [0.18, 0.21, 0.24], 'F1', 12.5);
+  bullets([
+    'Robótica y control: ROS, algoritmos de control, navegación autónoma, integración de sensores.',
+    'Programación y datos: Python, C++, MATLAB, Data Analytics, control de flotas.',
+    'CAD: SolidWorks, Fusion 360, AutoCAD, Inventor, manufactura aditiva (impresión 3D).',
+    'Hardware: Jetson, Raspberry Pi, Arduino, sensores y actuadores.',
+  ]);
 
-  section('Educación y certificaciones');
-  body([
-    'Magíster en Ingeniería — Automatización Industrial · Universidad Nacional de Colombia · Dic 2022',
-    'Ingeniero Eléctrico · Universidad Nacional de Colombia · Jun 2018',
-    'PMP® — Project Management Professional (Project Management Institute)',
-  ], 9.5, [0.18, 0.21, 0.24], 'F1', 13);
+  section('Educación, certificación e idiomas');
+  bullets([
+    'Magíster en Ingeniería - Automatización Industrial - Universidad Nacional de Colombia - Dic 2022.',
+    'Ingeniero Eléctrico - Universidad Nacional de Colombia - Jun 2018.',
+    'PMP® - Project Management Professional. Español nativo; inglés con competencia profesional.',
+  ]);
 
-  it.push({ t: 'Documento generado automáticamente como placeholder — reemplázalo con tu CV definitivo.', x: L, y: 40, size: 7.5, font: 'F1', color: [0.6, 0.62, 0.65] });
+  if (y < 80) throw new Error(`CV content overflows the page (layout y=${y.toFixed(1)}).`);
+  it.push({ t: 'Resumen curricular generado con la información profesional publicada en este portafolio.', x: L, y: 40, size: 7.2, font: 'F1', color: [0.6, 0.62, 0.65] });
   return buildPdf(it);
 }
 

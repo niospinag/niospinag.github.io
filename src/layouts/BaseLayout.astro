@@ -4,6 +4,8 @@ import Background from '../components/Background.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { profile } from '../data/profile';
+import { translations, defaultLang } from '../data/translations';
+import type { Lang } from '../data/translations';
 
 interface Props {
   title?: string;
@@ -60,7 +62,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="es" class="dark scroll-smooth">
+<html lang="en" class="dark scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -85,7 +87,7 @@ const jsonLd = {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={`${profile.name} — ${profile.role}`} />
-    <meta property="og:locale" content="es_CO" />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -104,7 +106,7 @@ const jsonLd = {
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-neon focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:font-bold focus:text-void"
     >
-      Saltar al contenido
+      Skip to content
     </a>
 
     <Background />
@@ -177,7 +179,7 @@ const jsonLd = {
   /* Section spy -> highlight active nav link */
   const links = new Map<string, HTMLElement>();
   document.querySelectorAll<HTMLAnchorElement>('[data-navlink]').forEach((a) => {
-    const id = a.getAttribute('href')?.replace('#', '');
+    const id = new URL(a.href, window.location.origin).hash.slice(1);
     if (id) links.set(id, a);
   });
   const sections = [...links.keys()]
@@ -215,4 +217,199 @@ const jsonLd = {
     tick();
     window.setInterval(tick, 1000);
   }
+
+  /* ------------------------------------------------------------------
+   * Language Toggle (i18n)
+   * ------------------------------------------------------------------ */
+  type TranslationKey = keyof typeof translations.en;
+
+  const STORAGE_KEY = 'portfolio-lang';
+  const langLabel = document.getElementById('lang-label');
+
+  const getLang = (): Lang => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === 'en' || stored === 'es') return stored;
+    const browser = navigator.language.slice(0, 2);
+    if (browser === 'es') return 'es';
+    return defaultLang;
+  };
+
+  const setLang = (lang: Lang) => {
+    localStorage.setItem(STORAGE_KEY, lang);
+    document.documentElement.lang = lang;
+    applyTranslations(lang);
+    if (langLabel) langLabel.textContent = lang.toUpperCase();
+  };
+
+  const applyTranslations = (lang: Lang) => {
+    const t = translations[lang];
+
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = (el as HTMLElement).dataset.i18n as string;
+      const value = key.split('.').reduce((obj: any, k) => obj?.[k], t);
+      if (value) {
+        if (el instanceof HTMLInputElement) {
+          el.placeholder = value;
+        } else {
+          el.textContent = value;
+        }
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-nav]').forEach((el) => {
+      const text = el.textContent?.trim().toLowerCase();
+      if (text && t.nav[text as keyof typeof t.nav]) {
+        el.textContent = t.nav[text as keyof typeof t.nav];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-hero-status]').forEach((el) => {
+      el.textContent = t.hero.status;
+    });
+
+    document.querySelectorAll('[data-i18n-cta]').forEach((el) => {
+      const key = (el as HTMLElement).dataset.i18nCta as string;
+      const value = key.split('.').reduce((obj: any, k) => obj?.[k], t.footer);
+      if (value) el.textContent = value;
+    });
+
+    document.querySelectorAll('[data-i18n-about]').forEach((el) => {
+      const key = (el as HTMLElement).dataset.i18nAbout as string;
+      const value = key.split('.').reduce((obj: any, k) => obj?.[k], t.about);
+      if (value) el.textContent = value;
+    });
+
+    document.querySelectorAll('[data-i18n-stack]').forEach((el) => {
+      const key = (el as HTMLElement).dataset.i18nStack as string;
+      const value = key.split('.').reduce((obj: any, k) => obj?.[k], t.stack);
+      if (value) el.textContent = value;
+    });
+
+    document.querySelectorAll('[data-i18n-exp]').forEach((el) => {
+      const key = (el as HTMLElement).dataset.i18nExp as string;
+      const value = key.split('.').reduce((obj: any, k) => obj?.[k], t.experience);
+      if (value) el.textContent = value;
+    });
+
+    document.querySelectorAll('[data-i18n-viewer]').forEach((el) => {
+      const key = (el as HTMLElement).dataset.i18nViewer as string;
+      const value = key.split('.').reduce((obj: any, k) => obj?.[k], t.viewer);
+      if (value) el.textContent = value;
+    });
+
+    document.querySelectorAll('[data-i18n-project-card]').forEach((el) => {
+      el.textContent = t.projects.viewFull;
+    });
+
+    document.querySelectorAll('[data-i18n-footer-cta]').forEach((el) => {
+      el.textContent = t.footer.ctaTitle;
+    });
+
+    document.querySelectorAll('[data-i18n-copy-email]').forEach((el) => {
+      el.textContent = t.footer.copyEmail;
+    });
+
+    document.querySelectorAll('[data-i18n-toast]').forEach((el) => {
+      el.textContent = t.footer.emailCopied;
+    });
+
+    document.querySelectorAll('[data-i18n-back-top]').forEach((el) => {
+      el.textContent = t.footer.backToTop;
+    });
+
+    document.querySelectorAll('[data-i18n-section-title]').forEach((el) => {
+      const section = (el as HTMLElement).dataset.i18nSectionTitle as string;
+      if (section === 'experience') el.textContent = t.experience.title;
+      if (section === 'projects') el.textContent = t.projects.title;
+      if (section === 'stack') el.textContent = t.stack.title;
+      if (section === 'about') el.textContent = t.about.title;
+      if (section === 'viewer') el.textContent = t.viewer.title;
+    });
+
+    document.querySelectorAll('[data-i18n-subtitle]').forEach((el) => {
+      const section = (el as HTMLElement).dataset.i18nSubtitle as string;
+      if (section === 'experience') el.textContent = t.experience.subtitle;
+      if (section === 'projects') el.textContent = t.projects.subtitle;
+      if (section === 'stack') el.textContent = t.stack.subtitle;
+      if (section === 'about') el.textContent = t.about.subtitle;
+      if (section === 'viewer') el.textContent = t.viewer.subtitle;
+    });
+
+    document.querySelectorAll('[data-i18n-label]').forEach((el) => {
+      const key = (el as HTMLElement).dataset.i18nLabel as string;
+      if (key === 'education') el.textContent = t.about.education;
+      if (key === 'languages') el.textContent = t.about.languages;
+      if (key === 'certifications') el.textContent = t.about.certifications;
+      if (key === 'quickRecord') el.textContent = t.about.quickRecord;
+      if (key === 'references') el.textContent = t.about.references;
+      if (key === 'galleryTitle') el.textContent = t.viewer.gallery;
+      if (key === 'galleryText') el.textContent = t.viewer.galleryText;
+      if (key === 'availableAssemblies') el.textContent = t.viewer.availableAssemblies;
+      if (key === 'technicalSpecs') el.textContent = t.viewer.technicalSpecs;
+      if (key === 'assetPath') el.textContent = t.viewer.assetPath;
+    });
+
+    document.querySelectorAll('[data-i18n-open-channel]').forEach((el) => {
+      el.textContent = t.footer.openChannel;
+    });
+
+    document.querySelectorAll('[data-i18n-cta-text]').forEach((el) => {
+      el.textContent = t.footer.ctaText;
+    });
+
+    document.querySelectorAll('[data-i18n-pdf-cv]').forEach((el) => {
+      el.textContent = t.footer.pdfCV;
+    });
+
+    document.querySelectorAll('[data-i18n-projects-title]').forEach((el) => {
+      el.textContent = t.projects.title;
+    });
+
+    document.querySelectorAll('[data-i18n-projects-subtitle]').forEach((el) => {
+      el.textContent = t.projects.subtitle;
+    });
+
+    document.querySelectorAll('[data-i18n-projects-link]').forEach((el) => {
+      el.textContent = t.projects.viewAll;
+    });
+
+    document.querySelectorAll('[data-i18n-current]').forEach((el) => {
+      el.textContent = t.experience.current;
+    });
+
+    document.querySelectorAll('[data-i18n-screenshot-count]').forEach((el) => {
+      el.textContent = `${t.viewer.screenshots}`;
+    });
+
+    document.querySelectorAll('[data-i18n-model-count]').forEach((el) => {
+      el.textContent = `${t.viewer.models}`;
+    });
+
+    document.querySelectorAll('[data-i18n-404-title]').forEach((el) => {
+      el.textContent = t.notFound.routeOut;
+    });
+
+    document.querySelectorAll('[data-i18n-404-text]').forEach((el) => {
+      el.textContent = t.notFound.routeOutText;
+    });
+
+    document.querySelectorAll('[data-i18n-404-back]').forEach((el) => {
+      el.textContent = t.notFound.backToHome;
+    });
+
+    document.querySelectorAll('[data-i18n-404-projects]').forEach((el) => {
+      el.textContent = t.notFound.viewProjects;
+    });
+
+    document.querySelectorAll('[data-i18n-404-recovery]').forEach((el) => {
+      el.textContent = t.notFound.recovering;
+    });
+  };
+
+  document.getElementById('lang-toggle')?.addEventListener('click', () => {
+    const current = getLang();
+    setLang(current === 'en' ? 'es' : 'en');
+  });
+
+  setLang(getLang());
 </script>

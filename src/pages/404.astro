@@ -1,25 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { projectsIndexHref, sectionHref } from '../data/profile';
 
 export const prerender = true;
 ---
 
-<BaseLayout title="404 — Ruta no encontrada" description="La ruta solicitada no existe en este portafolio.">
+<BaseLayout title="404 — Route Not Found" description="The requested route does not exist in this portfolio.">
   <section class="grid min-h-screen place-items-center px-4 py-32">
     <div class="panel corners reveal scanlines relative w-full max-w-lg overflow-hidden p-8 text-center sm:p-10">
       <p class="label">// fault.code</p>
       <p class="glow-neon mt-4 font-mono text-7xl font-bold tabular-nums text-neon sm:text-8xl">404</p>
       <h1 class="mt-4 font-display text-xl font-bold uppercase tracking-wide text-txt">
-        Ruta fuera del espacio de trabajo
+        Route out of workspace
       </h1>
       <p class="mt-3 text-sm leading-relaxed text-txt-dim">
-        El nodo solicitado no existe en este mapa de ocupación. Vuelve a una coordenada válida.
+        The requested node does not exist in this occupancy map. Return to a valid coordinate.
       </p>
       <div class="mt-7 flex justify-center gap-3">
-        <a href="/" class="btn btn-primary">Volver al inicio</a>
-        <a href="/#projects" class="btn btn-ghost">Ver proyectos</a>
+        <a href={sectionHref('hero')} class="btn btn-primary">Back to home</a>
+        <a href={projectsIndexHref()} class="btn btn-ghost">View projects</a>
       </div>
-      <p class="mono mt-6 text-[10px] text-txt-mute">nav2::recovery — returning to last known pose…</p>
+      <p class="mono mt-6 text-[10px] text-txt-mute">system::recovery — returning to main page…</p>
     </div>
   </section>
 </BaseLayout>

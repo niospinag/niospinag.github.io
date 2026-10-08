@@ -9,9 +9,11 @@ import { stackGroups, accentClasses } from '../data/profile';
     <SectionHeader
       index="01"
       title="Tech Stack Matrix"
-      subtitle="Matriz de competencias técnicas organizada por dominio: robótica y control, software y datos, diseño CAD/prototipado, y hardware embebido."
+      subtitle="Technical competencies matrix organized by domain: robotics and control, software and data, CAD design/prototyping, and embedded hardware."
       note="capabilities.matrix"
       accent="cyan"
+      i18nTitle="stack.title"
+      i18nSubtitle="stack.subtitle"
     />
 
     <div class="reveal grid gap-6 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-8">
@@ -19,7 +21,7 @@ import { stackGroups, accentClasses } from '../data/profile';
       <div
         class="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0"
         role="tablist"
-        aria-label="Categorías del stack"
+        aria-label="Stack categories"
       >
         {
           stackGroups.map((g, i) => {
@@ -70,7 +72,7 @@ import { stackGroups, accentClasses } from '../data/profile';
                   <div class="flex flex-wrap items-center justify-between gap-3">
                     <h3 class={`font-display text-lg font-bold uppercase tracking-wide ${a.text}`}>{g.title}</h3>
                     <span class="mono text-[10px] text-txt-mute">
-                      {g.code} · {g.items.length} modules loaded
+                      {g.code} · {g.items.length} skills
                     </span>
                   </div>
 
@@ -88,13 +90,10 @@ import { stackGroups, accentClasses } from '../data/profile';
 
                   <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-hud pt-4 font-mono text-[10px] text-txt-mute">
                     <span class="inline-flex items-center gap-1.5">
-                      <span class={`h-1.5 w-1.5 rounded-full ${a.dot} animate-blink`}></span>
-                      MODULES: {g.items.length}
+                      <span class={`h-1.5 w-1.5 rounded-full ${a.dot}`}></span>
+                      SKILLS: {g.items.length}
                     </span>
-                    <span>
-                      STATUS: <span class={a.text}>PRODUCTION</span>
-                    </span>
-                    <span class="hidden sm:inline">LAST_SYNC: 2026-09</span>
+                    <span>DOMAIN: <span class={a.text}>{g.code}</span></span>
                   </div>
                 </div>
               </div>

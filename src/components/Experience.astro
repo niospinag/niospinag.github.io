@@ -8,10 +8,12 @@ import { experience, accentClasses } from '../data/profile';
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <SectionHeader
       index="02"
-      title="Experiencia Laboral"
-      subtitle="Línea de tiempo interactiva: despliega cada nodo para ver logros cuantificados, métricas de impacto y el stack utilizado."
+      title="Work Experience"
+      subtitle="Interactive timeline: expand each node to view quantified achievements, impact metrics, and the stack used."
       note="career.timeline"
       accent="neon"
+      i18nTitle="experience.title"
+      i18nSubtitle="experience.subtitle"
     />
 
     <div class="reveal relative pl-6 sm:pl-10">
@@ -57,7 +59,7 @@ import { experience, accentClasses } from '../data/profile';
                         {job.current && (
                           <span class="inline-flex items-center gap-1.5 rounded-full border border-neon/40 bg-neon/10 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-neon">
                             <span class="h-1 w-1 animate-blink rounded-full bg-neon"></span>
-                            activo
+                            current
                           </span>
                         )}
                       </span>

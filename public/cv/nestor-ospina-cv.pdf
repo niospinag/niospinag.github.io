@@ -10,317 +10,287 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 6339 >>
+<< /Length 5460 >>
 stream
 0.05 0.07 0.09 rg
-56 782 483 108 re f
+56 727 483 90 re f
 0.16 0.62 0.4 rg
-56 782 4 108 re f
+56 727 4 90 re f
 BT
-/F2 22 Tf
+/F2 21 Tf
 1 1 1 rg
-1 0 0 1 74 858 Tm
+1 0 0 1 74 790 Tm
 (NESTOR IVAN OSPINA GAITAN) Tj
 ET
 BT
-/F1 11 Tf
+/F1 10.5 Tf
 0.16 0.62 0.4 rg
-1 0 0 1 74 834 Tm
+1 0 0 1 74 771 Tm
 (Robotics Software Engineer  |  Robotics, Control & Design) Tj
 ET
 BT
-/F1 9 Tf
+/F1 8.2 Tf
 0.75 0.8 0.85 rg
-1 0 0 1 74 814 Tm
-(Bogotá, Colombia   ·   niospinag@unal.edu.co   ·   +57 300 292 4631) Tj
+1 0 0 1 74 753 Tm
+(Bogotá, Colombia  ·  niospinag@unal.edu.co  ·  +57 300 292 4631) Tj
 ET
 BT
-/F1 9 Tf
+/F1 8.2 Tf
 0.75 0.8 0.85 rg
-1 0 0 1 74 798 Tm
-(github.com/niospinag   ·   linkedin.com/in/niospinag) Tj
+1 0 0 1 74 738 Tm
+(github.com/niospinag  ·  linkedin.com/in/nestor-ospina) Tj
 ET
 BT
-/F2 11 Tf
+/F2 9.4 Tf
 0.08 0.1 0.13 rg
-1 0 0 1 56 650 Tm
+1 0 0 1 56 710 Tm
 (PERFIL PROFESIONAL) Tj
 ET
 0.16 0.62 0.4 RG
 1 w
-56 643 m 539 643 l S
+56 705 m 539 705 l S
 BT
-/F1 9.5 Tf
-0.16 0.19 0.22 rg
-1 0 0 1 56 624 Tm
-(Magíster en Ingeniería - Automatización Industrial con más de 5 años de experiencia) Tj
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 692 Tm
+(- Magíster en Ingeniería - Automatización Industrial y más de 5 años de experiencia.) Tj
 ET
 BT
-/F1 9.5 Tf
-0.16 0.19 0.22 rg
-1 0 0 1 56 610 Tm
-(liderando el desarrollo de plataformas robóticas, algoritmos de control y diseño mecánico CAD.) Tj
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 682 Tm
+(- Desarrollo de plataformas robóticas, algoritmos de control y diseño mecánico CAD.) Tj
 ET
 BT
-/F1 9.5 Tf
-0.16 0.19 0.22 rg
-1 0 0 1 56 596 Tm
-(Especialista en integración hardware-software, navegación autónoma y analítica de flotas.) Tj
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 672 Tm
+(- Experiencia en integración hardware-software, navegación autónoma y analítica de flotas.) Tj
 ET
 BT
-/F1 9.5 Tf
-0.16 0.19 0.22 rg
-1 0 0 1 56 582 Tm
-(Certificación PMP. Español nativo, inglés con competencia profesional completa.) Tj
-ET
-BT
-/F2 11 Tf
+/F2 9.4 Tf
 0.08 0.1 0.13 rg
-1 0 0 1 56 562 Tm
-(MÉTRICAS DE IMPACTO) Tj
+1 0 0 1 56 660 Tm
+(MÉTRICAS REPORTADAS) Tj
 ET
 0.16 0.62 0.4 RG
 1 w
-56 555 m 539 555 l S
+56 655 m 539 655 l S
 BT
-/F1 9.5 Tf
-0.35 0.4 0.45 rg
-1 0 0 1 56 536 Tm
-(+50%  Eficiencia en implementación mediante automatización de procesos.) Tj
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 642 Tm
+(- +50% eficiencia en implementación mediante automatización.) Tj
 ET
 BT
-/F1 9.5 Tf
-0.35 0.4 0.45 rg
-1 0 0 1 56 522 Tm
-(+25%  Precisión en navegación y control de robots móviles.) Tj
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 632 Tm
+(- +25% precisión en navegación y control de robots.) Tj
 ET
 BT
-/F1 9.5 Tf
-0.35 0.4 0.45 rg
-1 0 0 1 56 508 Tm
-(-60%  Tiempo de validación de algoritmos con plataforma de pruebas dedicada.) Tj
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 622 Tm
+(- -60% tiempo de validación de algoritmos.) Tj
 ET
 BT
-/F1 9.5 Tf
-0.35 0.4 0.45 rg
-1 0 0 1 56 494 Tm
-(99%   Precisión en evasión de colisiones para sistemas multi-agente.) Tj
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 612 Tm
+(- 99% precisión en evasión de colisiones multi-agente.) Tj
 ET
 BT
-/F2 11 Tf
+/F2 9.4 Tf
 0.08 0.1 0.13 rg
-1 0 0 1 56 474 Tm
+1 0 0 1 56 600 Tm
 (EXPERIENCIA PROFESIONAL) Tj
 ET
 0.16 0.62 0.4 RG
 1 w
-56 467 m 539 467 l S
+56 595 m 539 595 l S
 BT
-/F2 10 Tf
+/F2 8.5 Tf
 0.08 0.1 0.13 rg
+1 0 0 1 56 582 Tm
+(Unlimited Robotics - Software Engineer) Tj
+ET
+BT
+/F1 7.6 Tf
+0.35 0.4 0.45 rg
+1 0 0 1 56 571 Tm
+(Bogotá, Colombia · May 2024 - Presente) Tj
+ET
+BT
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 562 Tm
+(- Desarrollo de soluciones robóticas 3D y control de movimiento y navegación.) Tj
+ET
+BT
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 552 Tm
+(- Plataforma de pruebas para algoritmos: -60% en tiempo de testeo.) Tj
+ET
+BT
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 542 Tm
+(- Modernización de flota y diseño de entornos de manufactura aditiva y pruebas.) Tj
+ET
+BT
+/F2 8.5 Tf
+0.08 0.1 0.13 rg
+1 0 0 1 56 530 Tm
+(Kiwicampus S.A.S. \(Kiwibot\) - Junior Maintenance Engineer) Tj
+ET
+BT
+/F1 7.6 Tf
+0.35 0.4 0.45 rg
+1 0 0 1 56 519 Tm
+(Orono, Maine, USA · Dic 2023 - May 2024) Tj
+ET
+BT
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 510 Tm
+(- Tracking de flotas de entrega autónoma: +28% eficiencia de pedidos.) Tj
+ET
+BT
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 500 Tm
+(- Mantenimiento, diagnóstico y reparación del 95% de la flota activa.) Tj
+ET
+BT
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 490 Tm
+(- Mantenimiento predictivo: 30% menos fallas operativas.) Tj
+ET
+BT
+/F2 8.5 Tf
+0.08 0.1 0.13 rg
+1 0 0 1 56 478 Tm
+(Universidad Nacional de Colombia - Assistant Professor) Tj
+ET
+BT
+/F1 7.6 Tf
+0.35 0.4 0.45 rg
+1 0 0 1 56 467 Tm
+(Bogotá, Colombia · Jul 2018 - Nov 2022) Tj
+ET
+BT
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
+1 0 0 1 56 458 Tm
+(- Instructor de laboratorio para más de 200 estudiantes.) Tj
+ET
+BT
+/F1 8.1 Tf
+0.18 0.21 0.24 rg
 1 0 0 1 56 448 Tm
-(Software Engineer  ·  Unlimited Robotics  ·  Bogotá, Colombia) Tj
+(- Gestión de equipos de laboratorio para más de 15 cursos.) Tj
 ET
 BT
-/F2 10 Tf
+/F2 9.4 Tf
 0.08 0.1 0.13 rg
-1 0 0 1 56 435 Tm
-(May 2024  Presente) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 416 Tm
-(·  Desarrollo de soluciones robóticas 3D y algoritmos de control de movimiento y navegación.) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 403.5 Tm
-(·  Diseño de plataforma de pruebas para validación de algoritmos \(-60% tiempo de testeo\).) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 391 Tm
-(·  Modernización de flota robótica y diseño de entornos de manufactura aditiva y de pruebas.) Tj
-ET
-BT
-/F2 10 Tf
-0.08 0.1 0.13 rg
-1 0 0 1 56 368.5 Tm
-(Junior Maintenance Engineer  ·  Kiwicampus S.A.S. \(Kiwibot\)  ·  Orono, Maine) Tj
-ET
-BT
-/F2 10 Tf
-0.08 0.1 0.13 rg
-1 0 0 1 56 355.5 Tm
-(Dic 2023  May 2024) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 336.5 Tm
-(·  Análisis de datos y tracking de flotas de entrega autónoma \(+28% eficiencia de pedidos\).) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 324 Tm
-(·  Mantenimiento, diagnóstico y reparación del 95% de la flota robótica activa.) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 311.5 Tm
-(·  Estrategias de mantenimiento predictivo reduciendo fallas operativas en 30%.) Tj
-ET
-BT
-/F2 10 Tf
-0.08 0.1 0.13 rg
-1 0 0 1 56 289 Tm
-(Assistant Professor  ·  Universidad Nacional de Colombia  ·  Bogotá) Tj
-ET
-BT
-/F2 10 Tf
-0.08 0.1 0.13 rg
-1 0 0 1 56 276 Tm
-(Jul 2018  Nov 2022) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 257 Tm
-(·  Instructor de laboratorio para más de 200 estudiantes.) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 244.5 Tm
-(·  Gestión y disponibilidad de equipos de laboratorio para más de 15 cursos.) Tj
-ET
-BT
-/F2 11 Tf
-0.08 0.1 0.13 rg
-1 0 0 1 56 226 Tm
+1 0 0 1 56 436 Tm
 (PROYECTOS DESTACADOS) Tj
 ET
 0.16 0.62 0.4 RG
 1 w
-56 219 m 539 219 l S
+56 431 m 539 431 l S
 BT
-/F1 9 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 200 Tm
-(COVID Bot  Robot autónomo de desinfección UV-C: diseño mecánico a medida, sensórica) Tj
+1 0 0 1 56 418 Tm
+(- COVID Bot - robot autónomo UV-C; CAD a medida, sensórica integrada y navegación autónoma.) Tj
 ET
 BT
-/F1 9 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 188 Tm
-(integrada y navegación autónoma \(Python, C++, ROS, Jetson, Raspberry Pi, Arduino, Impresión 3D\).) Tj
+1 0 0 1 56 408 Tm
+(- Multi-Agent Collision Avoidance - navegación multi-robot; 99% de precisión anti-colisión.) Tj
 ET
 BT
-/F1 9 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 176 Tm
-(Multi-Agent Collision Avoidance  navegación independiente multi-robot con 99% de precisión) Tj
+1 0 0 1 56 398 Tm
+(- Fleet Analytics \(Kiwibot\) - modelos predictivos y telemetría para optimizar flotas.) Tj
 ET
 BT
-/F1 9 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 164 Tm
-(en prevención de colisiones en entornos dinámicos \(Python, control por visión, multi-agente\).) Tj
+1 0 0 1 56 388 Tm
+(- Artificial Testing Environment - entorno hospitalario físico y digital para validar robots.) Tj
 ET
 BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 152 Tm
-(Data-Driven Robot Tracking & Fleet Analytics  modelos predictivos y telemetría en tiempo real) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 140 Tm
-(para optimización logística de flotas autónomas \(Python, Data Analytics, Fleet Management\).) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 128 Tm
-(Artificial Testing Environment Design  infraestructura física y digital de entorno hospitalario) Tj
-ET
-BT
-/F1 9 Tf
-0.18 0.21 0.24 rg
-1 0 0 1 56 116 Tm
-(para validación sistemática de robots \(SolidWorks, diseño 3D, optimización de costos\).) Tj
-ET
-BT
-/F2 11 Tf
+/F2 9.4 Tf
 0.08 0.1 0.13 rg
-1 0 0 1 56 98 Tm
+1 0 0 1 56 376 Tm
 (STACK TECNOLÓGICO) Tj
 ET
 0.16 0.62 0.4 RG
 1 w
-56 91 m 539 91 l S
+56 371 m 539 371 l S
 BT
-/F1 9 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 72 Tm
-(Robótica & Control:  ROS · Algoritmos de Control · Navegación Autónoma · Sensor Integration) Tj
+1 0 0 1 56 358 Tm
+(- Robótica y control: ROS, algoritmos de control, navegación autónoma, integración de sensores.) Tj
 ET
 BT
-/F1 9 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 59.5 Tm
-(Programación & Datos:  Python · C++ · MATLAB · Data Analytics · Control de Flotas) Tj
+1 0 0 1 56 348 Tm
+(- Programación y datos: Python, C++, MATLAB, Data Analytics, control de flotas.) Tj
 ET
 BT
-/F1 9 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 47 Tm
-(Diseño CAD:  SolidWorks · Fusion 360 · AutoCAD · Inventor · Manufactura Aditiva \(Impresión 3D\)) Tj
+1 0 0 1 56 338 Tm
+(- CAD: SolidWorks, Fusion 360, AutoCAD, Inventor, manufactura aditiva \(impresión 3D\).) Tj
 ET
 BT
-/F1 9 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 34.5 Tm
-(Hardware Embebido:  Jetson · Raspberry Pi · Arduino · Sensores y Actuadores) Tj
+1 0 0 1 56 328 Tm
+(- Hardware: Jetson, Raspberry Pi, Arduino, sensores y actuadores.) Tj
 ET
 BT
-/F2 11 Tf
+/F2 9.4 Tf
 0.08 0.1 0.13 rg
-1 0 0 1 56 16 Tm
-(EDUCACIÓN Y CERTIFICACIONES) Tj
+1 0 0 1 56 316 Tm
+(EDUCACIÓN, CERTIFICACIÓN E IDIOMAS) Tj
 ET
 0.16 0.62 0.4 RG
 1 w
-56 9 m 539 9 l S
+56 311 m 539 311 l S
 BT
-/F1 9.5 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 -10 Tm
-(Magíster en Ingeniería  Automatización Industrial · Universidad Nacional de Colombia · Dic 2022) Tj
+1 0 0 1 56 298 Tm
+(- Magíster en Ingeniería - Automatización Industrial - Universidad Nacional de Colombia - Dic 2022.) Tj
 ET
 BT
-/F1 9.5 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 -23 Tm
-(Ingeniero Eléctrico · Universidad Nacional de Colombia · Jun 2018) Tj
+1 0 0 1 56 288 Tm
+(- Ingeniero Eléctrico - Universidad Nacional de Colombia - Jun 2018.) Tj
 ET
 BT
-/F1 9.5 Tf
+/F1 8.1 Tf
 0.18 0.21 0.24 rg
-1 0 0 1 56 -36 Tm
-(PMP®  Project Management Professional \(Project Management Institute\)) Tj
+1 0 0 1 56 278 Tm
+(- PMP® - Project Management Professional. Español nativo; inglés con competencia profesional.) Tj
 ET
 BT
-/F1 7.5 Tf
+/F1 7.2 Tf
 0.6 0.62 0.65 rg
 1 0 0 1 56 40 Tm
-(Documento generado automáticamente como placeholder  reemplázalo con tu CV definitivo.) Tj
+(Resumen curricular generado con la información profesional publicada en este portafolio.) Tj
 ET
 
 endstream
@@ -338,10 +308,10 @@ xref
 0000000064 00000 n 
 0000000121 00000 n 
 0000000263 00000 n 
-0000006654 00000 n 
-0000006751 00000 n 
+0000005775 00000 n 
+0000005872 00000 n 
 trailer
 << /Size 7 /Root 1 0 R >>
 startxref
-6853
+5974
 %%EOF

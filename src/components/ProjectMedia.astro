@@ -1,0 +1,64 @@
+---
+import { Icon } from 'astro-icon/components';
+import { getProjectMedia } from '../data/project-media';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const media = getProjectMedia(slug);
+const hasMedia = media.photos.length > 0 || media.videos.length > 0 || media.documents.length > 0;
+---
+
+{hasMedia && (
+  <section class="mt-12 border-t border-hud pt-8">
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <p class="label">// project.media</p>
+        <h2 class="mt-2 font-display text-2xl font-bold uppercase tracking-tight text-txt">Material del caso</h2>
+      </div>
+      <span class="mono text-[10px] uppercase tracking-[0.16em] text-txt-mute">
+        {media.photos.length} fotos · {media.videos.length} videos · {media.documents.length} documentos
+      </span>
+    </div>
+
+    {media.photos.length > 0 && (
+      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {media.photos.map((photo) => (
+          <a href={photo.src} target="_blank" rel="noopener noreferrer" class="group overflow-hidden rounded border border-hud bg-panel-2">
+            <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" class="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+          </a>
+        ))}
+      </div>
+    )}
+
+    {media.videos.length > 0 && (
+      <div class="mt-8 grid gap-5 lg:grid-cols-2">
+        {media.videos.map((video) => (
+          <figure class="overflow-hidden rounded border border-hud bg-panel">
+            <video controls preload="metadata" poster={video.poster} class="aspect-video w-full bg-void">
+              <source src={video.src} type={video.type} />
+              Tu navegador no puede reproducir este video.
+            </video>
+            <figcaption class="flex items-center gap-2 px-4 py-3 font-mono text-xs text-txt-dim">
+              <Icon name="lucide:video" class="h-4 w-4 text-cyan" />
+              {video.name}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+
+    {media.documents.length > 0 && (
+      <div class="mt-8 flex flex-wrap gap-3">
+        {media.documents.map((document) => (
+          <a href={document.src} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+            <Icon name="lucide:file-text" class="h-4 w-4" />
+            {document.label}
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+)}

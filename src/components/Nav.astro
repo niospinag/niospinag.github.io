@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { nav, profile } from '../data/profile';
+import { nav, profile, sectionHref } from '../data/profile';
 ---
 
 <header
@@ -16,7 +16,7 @@ import { nav, profile } from '../data/profile';
 
   <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
     <!-- brand -->
-    <a href="#hero" data-navlink class="group flex items-center gap-3" aria-label="Ir al inicio">
+    <a href={sectionHref('hero')} data-navlink class="group flex items-center gap-3" aria-label="Go to home">
       <span class="relative grid h-9 w-9 place-items-center rounded border border-hud bg-panel transition-colors group-hover:border-neon/60">
         <svg viewBox="0 0 64 64" class="h-5 w-5" aria-hidden="true">
           <path d="M32 6l22 13v26L32 58 10 45V19z" fill="none" stroke="currentColor" stroke-width="4" class="text-cyan" />
@@ -28,25 +28,24 @@ import { nav, profile } from '../data/profile';
         <span class="block font-mono text-[13px] font-bold tracking-tight text-txt">
           {profile.shortName.toUpperCase()}
         </span>
-        <span class="label block text-[9px] text-txt-mute">ROBOTICS · CONTROL · CAD</span>
+        <span class="label block text-[9px] text-txt-mute">ROBOTICS · AI · DATA</span>
       </span>
     </a>
 
     <!-- desktop nav -->
-    <nav class="ml-auto hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
+    <nav class="ml-auto hidden items-center gap-1 lg:flex" aria-label="Main navigation">
       {
         nav.map((item) => (
           <a
-            href={`#${item.id}`}
+            href={sectionHref(item.id)}
             data-navlink
             class="group relative rounded px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-txt-dim transition-colors hover:text-neon data-[active=true]:text-neon"
           >
             <span class="mr-1 text-[9px] text-txt-mute transition-colors group-hover:text-neon/70">{item.index}</span>
-            {item.label}
+            <span data-i18n-nav>{item.label}</span>
             <span class="absolute inset-x-3 -bottom-px h-px scale-x-0 bg-neon shadow-[0_0_8px_var(--color-neon)] transition-transform duration-300 group-hover:scale-x-100 data-[active=true]:scale-x-100"></span>
           </a>
-        ))
-      }
+        ))}
     </nav>
 
     <!-- right cluster -->
@@ -59,6 +58,16 @@ import { nav, profile } from '../data/profile';
         <span id="hud-clock" class="tabular-nums">--:--:--</span>
         <span class="text-txt-mute">BOG</span>
       </span>
+
+      <!-- Language Toggle -->
+      <button
+        id="lang-toggle"
+        type="button"
+        aria-label="Toggle language"
+        class="grid h-9 w-9 shrink-0 place-items-center rounded border border-hud bg-panel/70 font-mono text-[11px] font-bold text-txt-dim transition-all hover:-translate-y-0.5 hover:border-cyan/50 hover:text-cyan"
+      >
+        <span id="lang-label">EN</span>
+      </button>
 
       <a
         href={profile.links.github}
@@ -103,23 +112,23 @@ import { nav, profile } from '../data/profile';
     id="mobile-menu"
     class="hidden border-t border-hud/70 bg-void/95 backdrop-blur-md lg:hidden"
   >
-    <nav class="mx-auto grid max-w-7xl gap-1 px-4 py-4 sm:px-6" aria-label="Navegación móvil">
+    <nav class="mx-auto grid max-w-7xl gap-1 px-4 py-4 sm:px-6" aria-label="Mobile navigation">
       {
         nav.map((item) => (
           <a
-            href={`#${item.id}`}
+            href={sectionHref(item.id)}
             data-navlink
             data-mobilelink
             class="flex items-center gap-3 rounded border border-transparent px-3 py-2.5 font-mono text-xs uppercase tracking-[0.16em] text-txt-dim transition-colors hover:border-hud hover:bg-panel hover:text-neon"
           >
             <span class="text-[10px] text-txt-mute">{item.index}</span>
-            {item.label}
+            <span data-i18n-nav>{item.label}</span>
           </a>
         ))
       }
       <a href={profile.cv} download class="btn btn-primary mt-2 w-full">
         <Icon name="lucide:download" class="h-4 w-4" />
-        Descargar CV
+        <span data-i18n="hero.downloadCV">Download CV</span>
       </a>
     </nav>
   </div>

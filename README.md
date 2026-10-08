@@ -41,7 +41,8 @@ no existan, así tus modelos/CV reales nunca se pisan en un build.
 │   └── generate-assets.mjs           # writer propio de .glb / PDF / PNG (sin deps)
 ├── public/
 │   ├── favicon.svg  ·  robots.txt  ·  og-cover.png (1200×630)
-│   ├── cv/nestor-ospina-cv.pdf       # ← REEMPLAZA con tu CV real
+│   ├── cv/nestor-ospina-cv.pdf       # resumen generado; sustituible por tu CV oficial
+│   ├── projects/<slug>/{photos,videos,docs}/  # medios de cada caso técnico
 │   ├── assets/
 │   │   ├── draco/                    # decoder local + aviso Apache 2.0
 │   │   └── robot-gallery/            # siete capturas de SolidWorks
@@ -62,11 +63,17 @@ no existan, así tus modelos/CV reales nunca se pisan en un build.
         ├── SectionHeader.astro       # cabecera de sección reutilizable
         ├── TechStack.astro           # matriz por dominios (tabs accesibles)
         ├── Experience.astro          # línea de tiempo expandible + rail animado
-        ├── Projects.astro            # cards + <dialog> de case study
+        ├── ProjectCard.astro          # tarjeta reutilizable con enlace al caso
+        ├── ProjectMedia.astro         # fotos, videos y planos locales
+        ├── Projects.astro             # resumen de casos en la portada
         ├── ModelViewer.astro         # wrapper reusable de <model-viewer>
         ├── ViewerSection.astro       # visor, ocho modelos + galería de capturas
         ├── About.astro               # formación, idiomas, certs y referencias
         └── Footer.astro              # contacto, copiar correo, redes, toast
+    ├── data/project-media.ts         # descubrimiento de fotos, videos y PDFs
+    └── pages/proyectos/
+        ├── index.astro               # catálogo completo de casos
+        └── [slug].astro               # página individual de cada caso
 ```
 
 ## Tailwind CSS v4 (configuración CSS-first)
@@ -160,6 +167,41 @@ Todo el texto vive tipado en `src/data/profile.ts` (perfil, métricas, stack,
 experiencia, proyectos, modelos 3D, educación, galería, nav). Editar datos no requiere
 tocar markup. Los acentos por sección se resuelven con `accentClasses`, que
 declara literalmente cada variante de Tailwind para que el compilador las vea.
+
+## Casos con fotos, videos y planos
+
+La portada solo muestra un resumen. Cada caso tiene una página propia en
+`/proyectos/<slug>/`, por ejemplo:
+
+```text
+public/projects/
+├── covid-bot/
+│   ├── photos/       # .jpg, .jpeg, .png, .webp o .avif
+│   ├── videos/       # .mp4, .webm o .mov
+│   └── docs/         # planos y documentos .pdf
+├── testing-environment/
+├── fleet-analytics/
+└── unlimited-robotics/
+```
+
+Solo tienes que copiar los archivos a la carpeta correspondiente. El build los
+detecta y los muestra automáticamente en la página del caso. No necesitas
+registrar cada foto en el código. Usa nombres ordenables (`01-overview.jpg`,
+`02-testbed.jpg`) para controlar el orden de la galería.
+
+Recomendaciones prácticas:
+
+- Fotos: `JPG` o `WebP`, idealmente entre 1600 y 2400 px de ancho y menos de 2 MB.
+- Videos: `MP4` H.264, `720p` o `1080p`, idealmente menos de 25 MB por archivo.
+- Videos largos: mejor subirlos como no listados a YouTube/Vimeo y luego añadir un
+  embed, en lugar de hacer crecer el repositorio de GitHub.
+- Planos: exporta una copia PDF sin información confidencial, nombres de clientes
+  ni datos internos de empleadores.
+- Material de Kiwibot y Unlimited Robotics debe publicarse solo con autorización
+  y sin revelar información propietaria o personas identificables sin permiso.
+
+Para los cuatro casos ya preparados, los slugs son `covid-bot`,
+`testing-environment`, `fleet-analytics` y `unlimited-robotics`.
 
 ## Despliegue en GitHub Pages
 

@@ -53,16 +53,14 @@ export interface Project {
   title: string;
   subtitle: string;
   category: string;
-  period: string;
+  context?: string;
   description: string;
-  challenge: string;
+  scope: string;
   approach: string[];
-  impact: { label: string; value: string }[];
+  highlights: { label: string; value: string }[];
   stack: string[];
   icon: string;
   accent: Accent;
-  /** optional 3D asset shown inside the case-study modal */
-  model?: string;
 }
 
 export interface ModelAsset {
@@ -97,31 +95,30 @@ export interface EducationEntry {
  * PROFILE
  * ------------------------------------------------------------------ */
 export const profile = {
-  name: 'Nestor Ivan Ospina Gaitan',
+  name: 'Nestor I. Ospina Gaitan',
   shortName: 'Nestor Ospina',
-  role: 'Robotics Software Engineer',
-  roleSuffix: 'Robotics, Control & Design',
+  role: 'Robotics and AI Software Engineer',
+  roleSuffix: 'Robotics, AI & Control',
   tagline:
-    'Magíster en Automatización Industrial con más de 5 años de experiencia liderando el desarrollo de plataformas robóticas, algoritmos de control y diseño mecánico CAD.',
+    'M.Sc. in Industrial Automation with strong foundation in Machine Learning, ROS2, and data engineering. Proven ability to design AI predictive models, orchestrate large-scale data pipelines (~1 TB), and develop decentralized control systems for heterogeneous robot swarms.',
   location: 'Bogotá, Colombia',
   timezone: 'GMT-5',
-  email: 'niospinag@unal.edu.co',
+  email: 'nestorivan.o@hotmail.com',
   phone: '+57 3002924631',
   phoneHref: '+573002924631',
   links: {
     github: 'https://github.com/niospinag',
-    linkedin: 'https://www.linkedin.com/in/niospinag',
+    linkedin: 'https://www.linkedin.com/in/nestor-ospina',
   },
   cv: publicAsset('/cv/nestor-ospina-cv.pdf'),
-  status: 'Disponible para nuevos retos',
+  status: 'Active Technical Portfolio',
   languages: [
-    { name: 'Español', level: 'Nativo', value: 100 },
-    { name: 'Inglés', level: 'Competencia profesional', value: 85 },
+    { name: 'Spanish', level: 'Native' },
+    { name: 'English', level: 'Professional Working Proficiency' },
   ],
   certifications: [
     {
       name: 'PMP® — Project Management Professional',
-      issuer: 'Project Management Institute',
       icon: 'lucide:badge-check',
     },
   ],
@@ -132,41 +129,39 @@ export const profile = {
  * ------------------------------------------------------------------ */
 export const metrics: Metric[] = [
   {
-    value: '+50%',
-    target: 50,
+    value: '+35%',
+    target: 35,
     prefix: '+',
     suffix: '%',
-    label: 'Eficiencia en implementación',
-    detail: 'Ganancia de eficiencia operativa mediante automatización de procesos.',
+    label: 'Commission Success Rate',
+    detail: 'Branch commission success increased from 50% to 85%.',
     accent: 'neon',
     icon: 'lucide:gauge',
   },
   {
-    value: '+25%',
-    target: 25,
-    prefix: '+',
-    suffix: '%',
-    label: 'Precisión en navegación',
-    detail: 'Mejora en precisión de navegación y control de robots móviles.',
+    value: '~1TB',
+    target: 1,
+    suffix: 'TB',
+    label: 'Data Pipeline Scale',
+    detail: 'Large-scale historical datasets processed via GCP.',
     accent: 'cyan',
-    icon: 'lucide:crosshair',
+    icon: 'lucide:database',
   },
   {
-    value: '-60%',
-    target: 60,
-    prefix: '-',
-    suffix: '%',
-    label: 'Tiempo de validación',
-    detail: 'Reducción del tiempo de validación de algoritmos con plataforma de pruebas dedicada.',
+    value: '23',
+    target: 23,
+    suffix: '',
+    label: 'Heterogeneous Robots',
+    detail: 'Multi-agent testbed with rovers and drones.',
     accent: 'amber',
-    icon: 'lucide:timer',
+    icon: 'lucide:bot',
   },
   {
     value: '99%',
     target: 99,
     suffix: '%',
-    label: 'Evasión de colisiones',
-    detail: 'Precisión en evasión de colisiones para sistemas multi-agente en entornos dinámicos.',
+    label: 'Collision Avoidance',
+    detail: 'Precision in multi-agent collision avoidance.',
     accent: 'magenta',
     icon: 'lucide:shield-check',
   },
@@ -178,47 +173,41 @@ export const metrics: Metric[] = [
 export const stackGroups: StackGroup[] = [
   {
     id: 'robotics',
-    title: 'Robótica & Control',
+    title: 'Robotics & Vision',
     code: 'RTC-01',
     icon: 'lucide:bot',
     accent: 'neon',
     items: [
-      'ROS',
-      'Algoritmos de Control',
-      'Navegación Autónoma',
-      'Sensor Integration',
-      'Hardware-Software Integration',
+      'ROS/ROS2 (Nav2)',
+      'Gazebo / CoppeliaSim',
+      'Swarm Robotics',
+      'OpenCV & ArUco Markers',
+      'Autonomous Navigation',
     ],
+  },
+  {
+    id: 'ai',
+    title: 'AI & Data Engineering',
+    code: 'AI-02',
+    icon: 'lucide:brain',
+    accent: 'cyan',
+    items: ['Machine Learning (Random Forest)', 'GCP BigQuery', 'SQL Server', 'Looker Studio', 'Data Pipelines (~1 TB)'],
   },
   {
     id: 'software',
-    title: 'Programación & Datos',
-    code: 'SFT-02',
+    title: 'Programming Languages',
+    code: 'SFT-03',
     icon: 'lucide:code-xml',
-    accent: 'cyan',
-    items: ['Python', 'C++', 'MATLAB', 'Data Analytics', 'Control de Flotas'],
-  },
-  {
-    id: 'cad',
-    title: 'Diseño CAD & Prototipado',
-    code: 'CAD-03',
-    icon: 'lucide:box',
     accent: 'amber',
-    items: [
-      'SolidWorks',
-      'Fusion 360',
-      'AutoCAD',
-      'Inventor',
-      'Manufactura Aditiva (Impresión 3D)',
-    ],
+    items: ['Python (Advanced)', 'C++ (Familiar)', 'SQL (Advanced)', 'Bash/Shell'],
   },
   {
-    id: 'embedded',
-    title: 'Hardware Embebido',
+    id: 'hardware',
+    title: 'Hardware & Prototyping',
     code: 'EMB-04',
     icon: 'lucide:cpu',
     accent: 'magenta',
-    items: ['Jetson', 'Raspberry Pi', 'Arduino', 'Sensores y Actuadores'],
+    items: ['NVIDIA Jetson', 'Raspberry Pi', 'PCB Troubleshooting', '3D Printing (SolidWorks, Cura)'],
   },
 ];
 
@@ -227,76 +216,96 @@ export const stackGroups: StackGroup[] = [
  * ------------------------------------------------------------------ */
 export const experience: ExperienceEntry[] = [
   {
-    company: 'Unlimited Robotics',
-    role: 'Software Engineer',
+    company: 'Banco Falabella',
+    role: 'Data Analyst / Machine Learning',
     location: 'Bogotá, Colombia',
-    start: 'May 2024',
-    end: 'Presente',
+    start: 'May 2026',
+    end: 'Present',
     current: true,
     summary:
-      'Desarrollo de soluciones robóticas 3D, algoritmos de control y plataformas de validación.',
+      'ML models for business optimization and scalable data pipelines.',
     achievements: [
       {
-        text: 'Desarrollo de soluciones robóticas 3D y algoritmos de control de movimiento y navegación para plataformas autónomas.',
+        text: 'Engineered and deployed Random Forest ML models in Python to optimize business goal distribution, increasing branch commission success rates from 50% to 85%.',
       },
       {
-        text: 'Diseño de una plataforma de pruebas dedicada para la validación sistemática de algoritmos de control.',
-        metric: '-60% tiempo de testeo',
+        text: 'Architected scalable data pipelines using GCP (BigQuery) and SQL Server to process large-scale historical datasets (~1 TB).',
       },
       {
-        text: 'Modernización de la flota robótica y diseño de entornos de manufactura aditiva y de pruebas.',
+        text: 'Designed automated real-time dashboards in Looker Studio and advanced Excel (ODBC) for C-level executives.',
       },
     ],
-    stack: ['ROS', 'Python', 'C++', 'SolidWorks', 'Jetson', 'Impresión 3D'],
+    stack: ['Python', 'Random Forest', 'GCP BigQuery', 'SQL Server', 'Looker Studio'],
     accent: 'neon',
   },
   {
-    company: 'Kiwicampus S.A.S. (Kiwibot)',
-    role: 'Junior Maintenance Engineer',
-    location: 'Orono, Maine, USA',
-    start: 'Dic 2023',
-    end: 'May 2024',
+    company: 'Unlimited Robotics',
+    role: 'Robotics Software Engineer',
+    location: 'Bogotá, Colombia',
+    start: 'May 2024',
+    end: 'Aug 2025',
     current: false,
     summary:
-      'Analítica de flotas de entrega autónoma, mantenimiento predictivo y diagnóstico en campo.',
+      'ROS2 Nav2 stack maintenance and autonomous navigation development.',
     achievements: [
       {
-        text: 'Análisis de datos y tracking de flotas de robots de entrega autónoma.',
-        metric: '+28% eficiencia de pedidos',
+        text: 'Supported maintenance and integration of the ROS2 Nav2 stack for differential-drive robots, ensuring platform stability.',
       },
       {
-        text: 'Mantenimiento, diagnóstico y reparación del 95% de la flota robótica activa.',
-        metric: '95% de la flota',
+        text: 'Developed and tested ROS2 nodes in Python and C++ to process sensor data and orchestrate robot behaviors.',
       },
       {
-        text: 'Implementación de estrategias de mantenimiento predictivo.',
-        metric: '-30% fallas operativas',
+        text: 'Managed Linux-based environments (Ubuntu), utilizing Bash scripting to automate deployment pipelines.',
       },
     ],
-    stack: ['Python', 'Data Analytics', 'Fleet Management', 'Diagnóstico HW'],
+    stack: ['ROS2', 'Python', 'C++', 'Gazebo', 'Jetson', 'Ubuntu'],
     accent: 'cyan',
   },
   {
-    company: 'Universidad Nacional de Colombia',
-    role: 'Assistant Professor',
-    location: 'Bogotá, Colombia',
-    start: 'Jul 2018',
-    end: 'Nov 2022',
+    company: 'Kiwicampus S.A.S. (Kiwibot)',
+    role: 'Reliability Engineer (Field Operations)',
+    location: 'Orono, Maine, USA',
+    start: 'Dec 2023',
+    end: 'Apr 2024',
     current: false,
     summary:
-      'Docencia de laboratorio en ingeniería eléctrica, control y automatización.',
+      'Rapid prototyping and field maintenance of autonomous delivery robots.',
     achievements: [
       {
-        text: 'Instructor de laboratorio para más de 200 estudiantes en cursos de ingeniería eléctrica, control y automatización.',
-        metric: '+200 estudiantes',
+        text: 'Established 24-hour rapid prototyping pipeline (SolidWorks, Cura, 3D printing) to design, print, and deploy custom modifications onto the fleet.',
+        metric: '24-hour pipeline',
       },
       {
-        text: 'Gestión, mantenimiento y disponibilidad de equipos de laboratorio para más de 15 cursos.',
-        metric: '+15 cursos',
+        text: 'Diagnosed and resolved critical hardware/software failures in harsh weather conditions.',
+        metric: 'Max fleet uptime',
       },
     ],
-    stack: ['MATLAB', 'Control', 'Electrónica', 'Docencia'],
+    stack: ['SolidWorks', '3D Printing (Cura)', 'PCB Troubleshooting', 'Raspberry Pi'],
     accent: 'amber',
+  },
+  {
+    company: 'Bethune-Cookman University & UNAL',
+    role: 'Graduate Research Engineer',
+    location: 'Daytona Beach, FL, USA',
+    start: 'Jan 2020',
+    end: 'Jun 2021',
+    current: false,
+    summary:
+      'Multi-agent swarm robotics research and vision-based localization.',
+    achievements: [
+      {
+        text: 'Architected a decentralized multi-agent testbed with 23 heterogeneous robots (15 small, 4 medium, 2 large rovers, 2 drones).',
+        metric: '23 robots',
+      },
+      {
+        text: 'Developed vision/localization pipeline using Python, OpenCV, and ArUco markers, integrating with Raspberry Pi hardware.',
+      },
+      {
+        text: 'Co-authored peer-reviewed paper on multi-agent control strategies (Google Scholar).',
+      },
+    ],
+    stack: ['Python', 'OpenCV', 'ArUco Markers', 'Raspberry Pi', 'Swarm Robotics'],
+    accent: 'magenta',
   },
 ];
 
@@ -305,104 +314,121 @@ export const experience: ExperienceEntry[] = [
  * ------------------------------------------------------------------ */
 export const projects: Project[] = [
   {
-    id: 'covid-bot',
-    title: 'COVID Bot',
-    subtitle: 'Autonomous UV-C Disinfection Robot',
-    category: 'Robótica Móvil',
-    period: '2020 — 2022',
+    id: 'multi-agent-swarm',
+    title: 'Multi-Agent Swarm System',
+    subtitle: 'Decentralized Heterogeneous Robot Swarm',
+    category: 'Swarm Robotics',
     description:
-      'Robot autónomo de desinfección por luz UV-C con diseño mecánico a medida, sensórica integrada y navegación autónoma en interiores.',
-    challenge:
-      'Desinfectar áreas hospitalarias y de alto tráfico sin exponer personal a radiación UV-C, manteniendo autonomía de navegación y trazabilidad de cada ciclo.',
+      'Decentralized multi-agent testbed with 23 heterogeneous robots (15 small, 4 medium, 2 large rovers, and 2 drones) for evaluating swarm behavior and Game Theory algorithms.',
+    scope:
+      'Research platform for multi-agent control strategies and real-world validation of swarm robotics algorithms.',
     approach: [
-      'Diseño mecánico completo del chasis, torre UV-C y soportes de sensórica en CAD, optimizado para manufactura aditiva.',
-      'Arquitectura de control distribuida: Jetson para percepción y planificación, Raspberry Pi para telemetría, Arduino para actuadores.',
-      'Navegación autónoma con ROS, mapeo del entorno y rutinas de cobertura por zonas.',
-      'Interlocks de seguridad y monitoreo de presencia humana para operación segura de UV-C.',
+      'Designed decentralized architecture for heterogeneous robot coordination.',
+      'Developed vision-based localization pipeline using Python, OpenCV, and ArUco markers.',
+      'Integrated software with Raspberry Pi hardware for real-world validation.',
     ],
-    impact: [
-      { label: 'Cobertura', value: 'Multi-zona' },
-      { label: 'Control', value: 'Distribuido' },
-      { label: 'Stack', value: 'ROS / Jetson' },
+    highlights: [
+      { label: 'Robots', value: '23 heterogeneous' },
+      { label: 'Control', value: 'Decentralized' },
+      { label: 'Validation', value: 'Real-world' },
     ],
-    stack: ['Python', 'C++', 'ROS', 'Jetson', 'Raspberry Pi', 'Arduino', 'Impresión 3D'],
-    icon: 'lucide:sun',
+    stack: ['Python', 'OpenCV', 'ArUco Markers', 'Raspberry Pi', 'Swarm Robotics'],
+    icon: 'lucide:bot',
     accent: 'neon',
   },
   {
-    id: 'multi-agent-avoidance',
-    title: 'Multi-Agent Collision Avoidance',
-    subtitle: 'Sistema de evasión de colisiones multi-robot',
-    category: 'Control & Algoritmos',
-    period: '2021 — 2022',
+    id: 'fleet-analytics',
+    title: 'Fleet Analytics Dashboard',
+    subtitle: 'Data-Driven Robot Fleet Management',
+    category: 'Data Engineering',
+    context: 'Kiwibot · Reliability Engineer · Orono, Maine · Dec 2023 - Apr 2024',
     description:
-      'Navegación independiente multi-robot con 99% de precisión en la prevención de colisiones dentro de entornos dinámicos.',
-    challenge:
-      'Coordinar trayectorias de varios agentes que comparten espacio con obstáculos móviles, sin un controlador centralizado y con latencia mínima.',
+      'Analytics and telemetry for autonomous delivery robot fleet optimization with predictive maintenance strategies.',
+    scope:
+      'Data analytics and real-time telemetry applied to autonomous delivery fleet logistics management.',
     approach: [
-      'Control por visión con cámara cenital para estimación de posición y velocidad de todos los agentes.',
-      'Algoritmos de evasión descentralizados con predicción de trayectorias y resolución de conflictos.',
-      'Plataforma de pruebas instrumentada para validación sistemática y repetible de los algoritmos.',
-      'Barrido de parámetros y análisis de datos para ajustar márgenes de seguridad y agresividad de maniobra.',
+      'Fleet tracking and operational data analysis.',
+      'Real-time telemetry for logistics optimization.',
+      'Predictive models and maintenance for autonomous delivery robots.',
     ],
-    impact: [
-      { label: 'Precisión', value: '99%' },
-      { label: 'Validación', value: '-60% tiempo' },
-      { label: 'Agentes', value: 'Multi-robot' },
+    highlights: [
+      { label: 'Fleet managed', value: '95%+ uptime' },
+      { label: 'Rapid prototyping', value: '24-hour pipeline' },
+      { label: 'Field operations', value: 'All-weather' },
     ],
-    stack: ['Python', 'Control por Visión', 'Multi-Agent Systems', 'OpenCV', 'Data Analytics'],
-    icon: 'lucide:radar',
+    stack: ['Python', 'Data Analytics', 'Fleet Management', '3D Printing'],
+    icon: 'lucide:activity',
     accent: 'cyan',
   },
   {
-    id: 'fleet-analytics',
-    title: 'Data-Driven Robot Tracking',
-    subtitle: 'Fleet Analytics — Kiwibot',
-    category: 'Datos & Flotas',
-    period: '2023 — 2024',
+    id: 'ros2-nav2',
+    title: 'ROS2 Nav2 Integration',
+    subtitle: 'Autonomous Navigation Stack',
+    category: 'Autonomous Navigation',
     description:
-      'Modelos predictivos y telemetría en tiempo real para la optimización logística de flotas de robots de entrega autónoma.',
-    challenge:
-      'Convertir telemetría cruda de cientos de robots en decisiones de mantenimiento y ruteo que reduzcan tiempos muertos y fallas en campo.',
+      'ROS2 Nav2 stack maintenance and integration for differential-drive robots, ensuring platform stability for autonomous navigation tasks.',
+    scope:
+      'Support and development of ROS2 navigation stack for autonomous mobile platforms.',
     approach: [
-      'Pipeline de ingesta y limpieza de telemetría de flota (batería, odometría, eventos de error, rutas).',
-      'Dashboards de tracking en tiempo real con KPIs de disponibilidad y eficiencia de pedidos.',
-      'Modelos predictivos de falla para anticipar mantenimiento y priorizar intervenciones.',
-      'Protocolos de diagnóstico y reparación estandarizados para el equipo de campo.',
+      'ROS2 Nav2 stack maintenance and integration for differential-drive robots.',
+      'Developed and tested ROS2 nodes in Python and C++ for sensor data processing.',
+      'Validated control logic through high-fidelity Gazebo simulations.',
     ],
-    impact: [
-      { label: 'Eficiencia pedidos', value: '+28%' },
-      { label: 'Fallas operativas', value: '-30%' },
-      { label: 'Flota atendida', value: '95%' },
+    highlights: [
+      { label: 'Platform', value: 'ROS2 Nav2' },
+      { label: 'Simulation', value: 'Gazebo' },
+      { label: 'Languages', value: 'Python, C++' },
     ],
-    stack: ['Python', 'Data Analytics', 'Fleet Management', 'Telemetría', 'SQL'],
-    icon: 'lucide:activity',
+    stack: ['ROS2', 'Python', 'C++', 'Gazebo', 'Jetson', 'Ubuntu'],
+    icon: 'lucide:navigation',
     accent: 'amber',
   },
   {
-    id: 'testing-environment',
-    title: 'Artificial Testing Environment',
-    subtitle: 'Diseño de entorno de validación robótica',
-    category: 'Diseño CAD',
-    period: '2022 — 2024',
+    id: 'ml-business-optimization',
+    title: 'ML Business Optimization',
+    subtitle: 'Random Forest for Commission Success',
+    category: 'Machine Learning',
+    context: 'Banco Falabella · Data Analyst / ML · Bogotá, Colombia · May 2026 - Present',
     description:
-      'Infraestructura física y digital de un entorno hospitalario artificial para la validación sistemática de robots.',
-    challenge:
-      'Reproducir un entorno hospitalario realista de forma controlada, repetible y de bajo costo para validar algoritmos antes del despliegue.',
+      'Machine learning models deployed to optimize business goal distribution, significantly increasing branch commission success rates from 50% to 85%.',
+    scope:
+      'End-to-end ML pipeline from model design to deployment for business optimization.',
     approach: [
-      'Modelado CAD paramétrico de la infraestructura: pasillos, puertas, camas, mobiliario y obstáculos.',
-      'Optimización de costos mediante selección de materiales y diseño para manufactura aditiva.',
-      'Gemelo digital del entorno para simulación y pruebas de navegación offline.',
-      'Montaje físico instrumentado con puntos de referencia para control por visión.',
+      'Engineered and deployed Random Forest models in Python.',
+      'Architected scalable data pipelines using GCP (BigQuery) and SQL Server (~1 TB).',
+      'Designed real-time dashboards in Looker Studio for C-level executives.',
     ],
-    impact: [
-      { label: 'Tiempo de testeo', value: '-60%' },
-      { label: 'Costo', value: 'Optimizado' },
-      { label: 'Entregable', value: 'Físico + Digital' },
+    highlights: [
+      { label: 'Success rate', value: '50% → 85%' },
+      { label: 'Data scale', value: '~1 TB' },
+      { label: 'Dashboards', value: 'Looker Studio' },
     ],
-    stack: ['SolidWorks', 'Diseño 3D', 'Cost Optimization', 'Impresión 3D', 'Simulación'],
-    icon: 'lucide:layout-grid',
+    stack: ['Python', 'Random Forest', 'GCP BigQuery', 'SQL Server', 'Looker Studio'],
+    icon: 'lucide:brain',
     accent: 'magenta',
+  },
+  {
+    id: 'rapid-prototyping',
+    title: 'Rapid Prototyping Pipeline',
+    subtitle: '24-Hour Design-to-Deploy System',
+    category: 'Hardware & Manufacturing',
+    description:
+      'Established 24-hour rapid prototyping pipeline for designing, printing, and deploying custom modifications directly onto autonomous delivery robots.',
+    scope:
+      'Complete rapid prototyping workflow from CAD design to physical deployment on fleet robots.',
+    approach: [
+      'Designed custom parts using SolidWorks.',
+      '3D printing pipeline with Cura for rapid manufacturing.',
+      'Direct deployment onto autonomous delivery robot fleet.',
+    ],
+    highlights: [
+      { label: 'Cycle time', value: '24 hours' },
+      { label: 'Design', value: 'SolidWorks' },
+      { label: 'Manufacturing', value: '3D Printing' },
+    ],
+    stack: ['SolidWorks', 'Cura', '3D Printing', 'PCB Troubleshooting'],
+    icon: 'lucide:factory',
+    accent: 'neon',
   },
 ];
 
@@ -412,130 +438,130 @@ export const projects: Project[] = [
 export const models: ModelAsset[] = [
   {
     id: 'larry-chassis',
-    label: 'Larry · Chasis DuraOmni',
-    sublabel: 'Chasis con ruedas DuraOmni de 6″',
+    label: 'Larry · DuraOmni Chassis',
+    sublabel: 'Chassis with 6″ DuraOmni wheels',
     src: publicAsset('/models/cad/larry-chassis.glb'),
     poster: publicAsset('/assets/robot-gallery/larry-chassis.png'),
     cameraOrbit: '35deg 68deg auto',
     fieldOfView: '36deg',
     exposure: '1',
     specs: [
-      { k: 'Tipo', v: 'Chasis robótico' },
-      { k: 'Tracción', v: 'DuraOmni · 6″' },
-      { k: 'Origen', v: 'SolidWorks · glTF Draco' },
-      { k: 'Archivo', v: '1.0 MB' },
+      { k: 'Type', v: 'Robotic chassis' },
+      { k: 'Traction', v: 'DuraOmni · 6″' },
+      { k: 'Origin', v: 'SolidWorks · glTF Draco' },
+      { k: 'File', v: '1.0 MB' },
     ],
   },
   {
     id: 'mecanum-robot',
     label: 'Mecanum Robot',
-    sublabel: 'Plataforma con ruedas mecanum',
+    sublabel: 'Platform with mecanum wheels',
     src: publicAsset('/models/cad/mecanum-robot.glb'),
     poster: publicAsset('/assets/robot-gallery/mecanum-robot.png'),
     cameraOrbit: '-40deg 62deg auto',
     fieldOfView: '34deg',
     exposure: '1',
     specs: [
-      { k: 'Tipo', v: 'Plataforma móvil' },
-      { k: 'Tracción', v: 'Ruedas mecanum' },
-      { k: 'Origen', v: 'SolidWorks · glTF Draco' },
-      { k: 'Archivo', v: '99 KB' },
+      { k: 'Type', v: 'Mobile platform' },
+      { k: 'Traction', v: 'Mecanum wheels' },
+      { k: 'Origin', v: 'SolidWorks · glTF Draco' },
+      { k: 'File', v: '99 KB' },
     ],
   },
   {
     id: 'omni-v1',
-    label: 'Omnidireccional · V1',
-    sublabel: 'Plataforma con ruedas omni',
+    label: 'Omnidirectional · V1',
+    sublabel: 'Platform with omni wheels',
     src: publicAsset('/models/cad/omnidirectional-v1.glb'),
     poster: publicAsset('/assets/robot-gallery/omnidirectional-v1.png'),
     cameraOrbit: '35deg 72deg auto',
     fieldOfView: '32deg',
     exposure: '1',
     specs: [
-      { k: 'Tipo', v: 'Robot móvil' },
-      { k: 'Tracción', v: 'Ruedas omni' },
-      { k: 'Origen', v: 'SolidWorks · glTF Draco' },
-      { k: 'Archivo', v: '888 KB' },
+      { k: 'Type', v: 'Mobile robot' },
+      { k: 'Traction', v: 'Omni wheels' },
+      { k: 'Origin', v: 'SolidWorks · glTF Draco' },
+      { k: 'File', v: '888 KB' },
     ],
   },
   {
     id: 'omni-v2',
-    label: 'Omnidireccional · V2',
-    sublabel: 'Segunda exportación del ensamble omni',
+    label: 'Omnidirectional · V2',
+    sublabel: 'Variant 2 of the omnidirectional robot',
     src: publicAsset('/models/cad/omnidirectional-v2.glb'),
     poster: publicAsset('/assets/robot-gallery/omnidirectional-v1.png'),
     cameraOrbit: '35deg 72deg auto',
     fieldOfView: '32deg',
     exposure: '1',
     specs: [
-      { k: 'Tipo', v: 'Robot móvil' },
-      { k: 'Tracción', v: 'Ruedas omni' },
-      { k: 'Origen', v: 'SolidWorks · glTF Draco' },
-      { k: 'Archivo', v: '860 KB' },
+      { k: 'Type', v: 'Mobile robot' },
+      { k: 'Traction', v: 'Omni wheels' },
+      { k: 'Origin', v: 'SolidWorks · glTF Draco' },
+      { k: 'File', v: '860 KB' },
     ],
   },
   {
     id: 'robot-assembly-shell',
-    label: 'Robot Ensamble · carcasa',
-    sublabel: 'Ensamble completo con cubierta',
+    label: 'Robot Assembly · shell',
+    sublabel: 'Complete assembly with cover',
     src: publicAsset('/models/cad/robot-assembly-shell.glb'),
     poster: publicAsset('/assets/robot-gallery/robot-assembly-shell.png'),
     cameraOrbit: '30deg 68deg auto',
     fieldOfView: '32deg',
     exposure: '1',
     specs: [
-      { k: 'Tipo', v: 'Ensamble de robot' },
-      { k: 'Configuración', v: 'Con carcasa' },
-      { k: 'Origen', v: 'SolidWorks · glTF Draco' },
-      { k: 'Archivo', v: '121 KB' },
+      { k: 'Type', v: 'Robot assembly' },
+      { k: 'Configuration', v: 'With shell' },
+      { k: 'Origin', v: 'SolidWorks · glTF Draco' },
+      { k: 'File', v: '121 KB' },
     ],
   },
   {
     id: 'robot-assembly-internals',
-    label: 'Robot Ensamble · interior',
-    sublabel: 'Sin carcasa · componentes internos visibles',
+    label: 'Robot Assembly · internals',
+    sublabel: 'Without shell · internal components visible',
     src: publicAsset('/models/cad/robot-assembly-internals.glb'),
     poster: publicAsset('/assets/robot-gallery/robot-assembly-internals.png'),
     cameraOrbit: '30deg 68deg auto',
     fieldOfView: '32deg',
     exposure: '1',
     specs: [
-      { k: 'Tipo', v: 'Ensamble de robot' },
-      { k: 'Configuración', v: 'Exportación sin carcasa' },
-      { k: 'Vista', v: 'Componentes internos' },
-      { k: 'Archivo', v: '92 KB' },
+      { k: 'Type', v: 'Robot assembly' },
+      { k: 'Configuration', v: 'Shell exported separately' },
+      { k: 'View', v: 'Internal components' },
+      { k: 'File', v: '92 KB' },
     ],
   },
   {
     id: 'robot2',
-    label: 'Robot2 · ensamble',
-    sublabel: 'Plataforma robótica con electrónica integrada',
+    label: 'Robot2 · assembly',
+    sublabel: 'Robotic platform with integrated electronics',
     src: publicAsset('/models/cad/robot2.glb'),
     poster: publicAsset('/assets/robot-gallery/robot2.png'),
     cameraOrbit: '35deg 72deg auto',
     fieldOfView: '32deg',
     exposure: '1',
     specs: [
-      { k: 'Tipo', v: 'Ensamble CAD' },
-      { k: 'Elementos', v: 'Chasis, motores y electrónica' },
-      { k: 'Origen', v: 'SolidWorks · glTF Draco' },
-      { k: 'Archivo', v: '1.5 MB' },
+      { k: 'Type', v: 'CAD assembly' },
+      { k: 'Elements', v: 'Chassis, motors and electronics' },
+      { k: 'Origin', v: 'SolidWorks · glTF Draco' },
+      { k: 'File', v: '1.5 MB' },
     ],
   },
   {
     id: 'robot22',
-    label: 'Robot22 · revisión',
-    sublabel: 'Exportación revisada del ensamble Robot2',
+    label: 'Robot22',
+    sublabel: 'Robot22 CAD assembly',
     src: publicAsset('/models/cad/robot22-revision.glb'),
     poster: publicAsset('/assets/robot-gallery/robot2.png'),
     cameraOrbit: '35deg 72deg auto',
     fieldOfView: '32deg',
     exposure: '1',
     specs: [
-      { k: 'Tipo', v: 'Ensamble CAD' },
-      { k: 'Elementos', v: 'Chasis, motores y electrónica' },
-      { k: 'Origen', v: 'SolidWorks · glTF Draco' },
-      { k: 'Archivo', v: '1.5 MB' },
+      { k: 'Type', v: 'CAD assembly' },
+      { k: 'Elements', v: 'Chassis, motors and electronics' },
+      { k: 'Origin', v: 'SolidWorks · glTF Draco' },
+      { k: 'File', v: '1.5 MB' },
     ],
   },
 ];
@@ -546,50 +572,50 @@ export const models: ModelAsset[] = [
 export const robotGallery: RobotGalleryItem[] = [
   {
     id: 'larry-chassis',
-    title: 'Larry · Chasis DuraOmni',
-    description: 'Vista de diseño del chasis con ruedas omnidireccionales.',
+    title: 'Larry · DuraOmni Chassis',
+    description: 'Design view of the chassis with omnidirectional wheels.',
     image: publicAsset('/assets/robot-gallery/larry-chassis.png'),
     modelId: 'larry-chassis',
   },
   {
     id: 'chassis-detail',
-    title: 'Chasis · detalle CAD',
-    description: 'Captura adicional del diseño mecánico del chasis.',
+    title: 'Chassis · CAD detail',
+    description: 'Additional capture of the chassis mechanical design.',
     image: publicAsset('/assets/robot-gallery/chassis-detail.png'),
     modelId: 'larry-chassis',
   },
   {
     id: 'mecanum-robot',
-    title: 'Plataforma Mecanum',
-    description: 'Ensamble móvil con ruedas mecanum.',
+    title: 'Mecanum Platform',
+    description: 'Mobile assembly with mecanum wheels.',
     image: publicAsset('/assets/robot-gallery/mecanum-robot.png'),
     modelId: 'mecanum-robot',
   },
   {
     id: 'omnidirectional',
-    title: 'Robot omnidireccional',
-    description: 'Vista CAD de la plataforma con ruedas omni.',
+    title: 'Omnidirectional Robot',
+    description: 'CAD view of the platform with omni wheels.',
     image: publicAsset('/assets/robot-gallery/omnidirectional-v1.png'),
     modelId: 'omni-v1',
   },
   {
     id: 'robot-assembly-shell',
-    title: 'Robot Ensamble · con carcasa',
-    description: 'Configuración exterior del ensamble móvil.',
+    title: 'Robot Assembly · with shell',
+    description: 'Exterior configuration of the mobile assembly.',
     image: publicAsset('/assets/robot-gallery/robot-assembly-shell.png'),
     modelId: 'robot-assembly-shell',
   },
   {
     id: 'robot-assembly-internals',
-    title: 'Robot Ensamble · vista interna',
-    description: 'La misma plataforma exportada sin la carcasa.',
+    title: 'Robot Assembly · internal view',
+    description: 'Same platform exported without the shell.',
     image: publicAsset('/assets/robot-gallery/robot-assembly-internals.png'),
     modelId: 'robot-assembly-internals',
   },
   {
     id: 'robot2',
-    title: 'Robot2 · ensamble CAD',
-    description: 'Modelo del ensamble con chasis, accionamiento y electrónica.',
+    title: 'Robot2 · CAD assembly',
+    description: 'Assembly model with chassis, actuators and electronics.',
     image: publicAsset('/assets/robot-gallery/robot2.png'),
     modelId: 'robot2',
   },
@@ -600,14 +626,14 @@ export const robotGallery: RobotGalleryItem[] = [
  * ------------------------------------------------------------------ */
 export const education: EducationEntry[] = [
   {
-    degree: 'Magíster en Ingeniería — Automatización Industrial',
+    degree: "Master's Degree in Industrial Automation",
     institution: 'Universidad Nacional de Colombia',
     location: 'Bogotá, Colombia',
-    date: 'Dic 2022',
+    date: 'Jun 2021',
     icon: 'lucide:graduation-cap',
   },
   {
-    degree: 'Ingeniero Eléctrico',
+    degree: 'Bachelor\'s Degree in Electrical Engineering',
     institution: 'Universidad Nacional de Colombia',
     location: 'Bogotá, Colombia',
     date: 'Jun 2018',
@@ -619,13 +645,13 @@ export const education: EducationEntry[] = [
  * NAV
  * ------------------------------------------------------------------ */
 export const nav = [
-  { id: 'hero', label: 'Inicio', index: '00' },
+  { id: 'hero', label: 'Home', index: '00' },
   { id: 'stack', label: 'Stack', index: '01' },
-  { id: 'experience', label: 'Experiencia', index: '02' },
-  { id: 'projects', label: 'Proyectos', index: '03' },
-  { id: 'viewer', label: 'CAD 3D', index: '04' },
-  { id: 'about', label: 'Perfil', index: '05' },
-  { id: 'contact', label: 'Contacto', index: '06' },
+  { id: 'experience', label: 'Experience', index: '02' },
+  { id: 'projects', label: 'Projects', index: '03' },
+  { id: 'viewer', label: '3D CAD', index: '04' },
+  { id: 'about', label: 'Profile', index: '05' },
+  { id: 'contact', label: 'Contact', index: '06' },
 ] as const;
 
 /* ------------------------------------------------------------------ *
@@ -669,3 +695,9 @@ export const accentClasses: Record<
     grad: 'from-magenta/25 via-magenta/5',
   },
 };
+
+export const sectionHref = (id: string) => `${import.meta.env.BASE_URL}#${id}`;
+
+export const projectsIndexHref = () => `${import.meta.env.BASE_URL}proyectos/`;
+
+export const projectHref = (id: string) => `${import.meta.env.BASE_URL}proyectos/${id}/`;

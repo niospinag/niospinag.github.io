@@ -8,9 +8,11 @@ interface Props {
   subtitle?: string;
   note?: string;
   accent?: Accent;
+  i18nTitle?: string;
+  i18nSubtitle?: string;
 }
 
-const { index, title, subtitle, note, accent = 'neon' } = Astro.props;
+const { index, title, subtitle, note, accent = 'neon', i18nTitle, i18nSubtitle } = Astro.props;
 const a = accentClasses[accent];
 ---
 
@@ -22,10 +24,10 @@ const a = accentClasses[accent];
         <span class="h-px w-10 bg-gradient-to-r from-current to-transparent opacity-60" style={`color: var(--color-${accent})`}></span>
         {note && <span class="label">{note}</span>}
       </div>
-      <h2 class="mt-3 text-3xl font-bold uppercase tracking-tight text-txt sm:text-4xl lg:text-[2.75rem]">
+      <h2 class="mt-3 text-3xl font-bold uppercase tracking-tight text-txt sm:text-4xl lg:text-[2.75rem]" data-i18n-section-title={i18nTitle}>
         {title}
       </h2>
-      {subtitle && <p class="mt-3 max-w-2xl text-sm leading-relaxed text-txt-dim sm:text-base">{subtitle}</p>}
+      {subtitle && <p class="mt-3 max-w-2xl text-sm leading-relaxed text-txt-dim sm:text-base" data-i18n-subtitle={i18nSubtitle}>{subtitle}</p>}
     </div>
     <div class="mono hidden shrink-0 items-center gap-2 text-[10px] text-txt-mute sm:flex">
       <span class={`h-1.5 w-1.5 rounded-full ${a.dot} animate-blink`}></span>

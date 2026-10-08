@@ -1,0 +1,31 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects, sectionHref } from '../../data/profile';
+---
+
+<BaseLayout
+  title="Projects and Technical Cases — Nestor Ospina"
+  description="Technical cases in robotics, control, fleet analytics, CAD design and robotic platform validation."
+>
+  <section class="relative min-h-screen px-4 pb-24 pt-32 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <a href={sectionHref('projects')} class="label inline-flex items-center gap-2 transition-colors hover:text-neon">
+        <Icon name="lucide:arrow-left" class="h-3.5 w-3.5" />
+        back to summary
+      </a>
+      <div class="mt-6 max-w-3xl">
+        <p class="label text-magenta">// project.catalog</p>
+        <h1 class="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-txt sm:text-6xl">Projects and Technical Cases</h1>
+        <p class="mt-5 text-base leading-relaxed text-txt-dim sm:text-lg">
+          An index to navigate each case without loading all photos and videos on the homepage. Each page can grow with audiovisual material, plans, and professional context.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-5 md:grid-cols-2 lg:gap-6">
+        {projects.map((project, index) => <ProjectCard project={project} delay={(index % 4) * 80} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
